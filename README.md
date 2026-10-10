@@ -69,11 +69,12 @@ remove its link in both the header nav and the `#menu` list.
 From the folder *above* this one: `python -m http.server 4173`, then open
 http://localhost:4173/the-terrigal-residence/ (this matches the GitHub Pages subpath).
 
-## Publishing (only once the owner approves)
+## Publishing
 
-The repository is private. On a free GitHub plan, Pages needs a public repository, so publishing means:
-1. Settings → General → Danger zone → change visibility to **Public**.
-2. Settings → Pages → Source: **Deploy from a branch**, branch `main`, folder `/ (root)`.
-3. After a minute or two, the site is live at the address above.
+Live site: **https://steinbok07.github.io/the-terrigal-residence/** (GitHub Pages, deployed from
+the `main` branch of this repository). Keep this address unchanged.
 
-Making the repo public also makes the source files and photos viewable on GitHub.
+- `main` = what's live. Anything pushed to `main` is published within about a minute.
+- `dev` = work in progress. Make and check all changes on `dev` in the local preview first.
+- To deploy approved changes only: merge `dev` into `main`, push `main`, then check the live site.
+- Never push unfinished edits to `main`.
