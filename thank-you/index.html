@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You for Your Enquiry | The Terrigal Residence</title>
+  <!-- Kept out of search results, and deliberately left out of sitemap.xml -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#2A2724">
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .thanks { min-height: 100vh; min-height: 100dvh; padding-top: var(--header-h); }
+    .thanks h1 { color: var(--ivory); font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.04; margin-bottom: .5em; text-wrap: balance; }
+    .thanks .plate img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+  </style>
+</head>
+<body>
+  <header class="site-header is-scrolled">
+    <div class="site-header__inner">
+      <a class="wordmark" href="../"><span class="wordmark__the">The</span> Terrigal Residence</a>
+    </div>
+  </header>
+
+  <main id="main" class="inspections thanks">
+    <figure class="plate inspections__plate">
+      <img src="../assets/img/photos/terrigal-ocean-view-living-room-960.webp"
+           srcset="../assets/img/photos/terrigal-ocean-view-living-room-480.webp 480w, ../assets/img/photos/terrigal-ocean-view-living-room-960.webp 960w, ../assets/img/photos/terrigal-ocean-view-living-room-1672.webp 1672w"
+           sizes="(min-width: 900px) 50vw, 100vw" width="1672" height="941" decoding="async"
+           alt="Ocean-view living room at The Terrigal Residence, with a coffered ceiling and full-width glazed doors">
+    </figure>
+    <div class="inspections__text">
+      <p class="eyebrow">Private Inspections</p>
+      <h1>Thank You for Your Enquiry</h1>
+      <p class="lede">Thank you for your interest in The Terrigal Residence. Your enquiry has been received, and Gavin will be in touch.</p>
+      <div class="contact-actions">
+        <a class="btn btn--primary" href="../">Return to The Residence</a>
+        <a class="btn" href="tel:+61417687697">
+          <span class="btn__stack"><span>Call Gavin</span><span class="btn__detail">0417 687 697</span></span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/site-config.js"></script>
+  <script src="../assets/js/tracking.js"></script>
+  <script>
+    // Count the enquiry conversion only when the form left a one-time token after the form
+    // provider confirmed delivery. The token is removed straight away, so reloading this page
+    // or visiting it directly counts nothing. It's also sent as the transaction ID, so Google
+    // Ads discards any duplicate.
+    (function () {
+      var token = null;
+      try { token = sessionStorage.getItem('tr-enquiry'); sessionStorage.removeItem('tr-enquiry'); } catch (e) { /* storage blocked */ }
+      if (token && window.TR_TRACKING) window.TR_TRACKING.track('enquiry', 'generate_lead', { transactionId: token });
+    })();
+  </script>
+</body>
+</html>

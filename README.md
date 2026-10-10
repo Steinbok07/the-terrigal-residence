@@ -20,26 +20,40 @@ https://steinbok07.github.io/the-terrigal-residence/ address redirects to it aut
 | `tools/build_images.py` | Regenerates the photographs from the original PNGs |
 | `tools/build_floorplans.py` | Regenerates the marketing floor plans from the CDC PDFs |
 | `tools/build_icons.py` | Regenerates `favicon.ico` and the PNG icons |
-| `privacy.html` | Privacy statement for enquiry details (linked from the form and footer) |
+| `privacy.html` | Privacy statement, with the measurement opt-out (linked from the form and footer) |
+| `thank-you/index.html` | Shown after a confirmed enquiry; records the enquiry conversion |
+| `assets/js/tracking.js` | Google Ads / Analytics loading, consent defaults, conversion events |
 | `robots.txt`, `sitemap.xml` | Tell search engines what to crawl. Update `<lastmod>` in the sitemap after content changes |
 | `CNAME` | The custom domain. Don't delete it, or the domain stops working |
 
 ## Common changes
 
-**Add contact details.** In `site-config.js`, fill in `contact.name`, `contact.phone` (mobile) and
-`contact.email`. They appear in the Private Inspections section, in the call bar on phones and on
-the privacy page. Empty values are simply left out.
+**Contact details.** Gavin's name, mobile and email appear in three places. Change all three
+together: the Private Inspections section in `index.html`, `thank-you/index.html` and `privacy.html`,
+plus `contact` in `site-config.js` (used by the phone call bar and form messages).
 
-**Connect the enquiry form.** The "Request a Private Inspection" form is delivered by Web3Forms
-(web3forms.com). Create a free access key there for the email address enquiries should go to, then
-paste it into `enquiryForm.accessKey`. Until then the form shows "not yet connected" and can't be
-sent. Send a test enquiry after connecting it, and check that it arrives (including the spam folder).
+**Enquiry form.** Delivered by Formspree (formspree.io). In the Formspree account for
+gavin@steinbok.com.au, create a form, then put its ID (the part after `formspree.io/f/`) in
+`enquiryForm.id`. The ID is a public identifier, not a password. Never put account logins or
+private API keys in this repository. Until `id` is set, the form shows "not yet connected" and can't
+be sent. Web3Forms also works (`provider: 'web3forms'`, `id` = access key); if you switch, update
+the "How enquiries are delivered" paragraph in `privacy.html`.
 
-**Google Ads tracking.** Fill in `googleAds.conversionId` (`AW-…`) and the conversion labels for
-`enquiry`, `phone` and `email`. Nothing from Google loads until `conversionId` is set. An enquiry
-only counts as a conversion once Web3Forms confirms it was delivered. Phone and email count on
-click. The same actions are also pushed to `dataLayer` as `inspection_enquiry`, `phone_click` and
-`email_click`.
+After a confirmed delivery, visitors go to `thank-you/` (noindex, and deliberately not in the
+sitemap). A failed submission never redirects and never counts as a conversion.
+
+**Google Ads and Analytics.** Fill in `googleAds.conversionId` (`AW-…`), the three labels
+(`enquiry` primary; `phone` and `email` secondary) and, optionally, `googleAnalytics.measurementId`
+(`G-…`). Nothing from Google loads until an ID is set (`assets/js/tracking.js`).
+- The enquiry conversion fires on the thank-you page only when the form left a one-time token
+  after confirmed delivery. Reloads and direct visits count nothing, and the token is sent as
+  `transaction_id`. In Google Ads, set the enquiry action up as a **website event using code**,
+  not a "page load of URL contains thank-you" rule, which would count reloads.
+- Phone and email conversions count clicks on `tel:` and `mailto:` links. A click isn't proof
+  that a call or email happened.
+- Events are also pushed to `dataLayer`: `generate_lead`, `phone_click`, `email_click`.
+- Visitors in the EEA, UK and Switzerland default to denied (Consent Mode). Anyone can switch
+  measurement off on the privacy page.
 
 **Add the brochure.** Copy the PDF to `assets/brochure/`, then set
 `brochurePdf: 'assets/brochure/your-file.pdf'`.

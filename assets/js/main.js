@@ -197,119 +197,104 @@
     show(fpCfg.defaultLevel || entries[0].id);
   }
 
-  /* ---------- Google Ads conversion tracking ----------
-     Loads only once googleAds.conversionId is set in site-config.js. Every
-     contact action is also pushed to dataLayer (inspection_enquiry,
-     phone_click, email_click) so a Tag Manager container could use them too. */
-  var ads = cfg.googleAds || {};
-  var adsLabels = ads.labels || {};
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  if (ads.conversionId) {
-    var gs = document.createElement('script');
-    gs.async = true;
-    gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ads.conversionId);
-    document.head.appendChild(gs);
-    gtag('js', new Date());
-    gtag('config', ads.conversionId);
-  }
-  function track(action, eventName) {
-    window.dataLayer.push({ event: eventName });
-    var label = adsLabels[action];
-    if (ads.conversionId && label) gtag('event', 'conversion', { send_to: ads.conversionId + '/' + label });
-  }
-  // Phone and email clicks anywhere on the page
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
-    if (!a) return;
-    if (a.getAttribute('href').indexOf('tel:') === 0) track('phone', 'phone_click');
-    else track('email', 'email_click');
-  });
-
-  /* ---------- Contact details ---------- */
+  /* ---------- Inspection enquiry form ----------
+     Sent with fetch to the provider in site-config.js (Formspree or Web3Forms). Visitors go to
+     thank-you/ ONLY after the provider confirms delivery. A one-time token travels with them
+     (sessionStorage) so the thank-you page can count the conversion once and only once. */
   var c = cfg.contact || {};
-  var telHref = c.phone ? 'tel:' + c.phone.replace(/[^\d+]/g, '') : '';
-  var contact = document.getElementById('contact');
-  if (contact) {
-    if (c.name || c.phone || c.email) {
-      contact.appendChild(el('p', { 'class': 'contact-card__label' }, 'Enquiries'));
-      if (c.name) contact.appendChild(el('p', { 'class': 'contact-card__name' }, c.name));
-      if (c.role) contact.appendChild(el('p', { 'class': 'contact-card__role' }, c.role));
-      if (c.phone) {
-        var ph = el('a', { 'class': 'contact-card__phone', href: telHref, 'aria-label': 'Call ' + c.phone });
-        ph.appendChild(el('span', { 'class': 'contact-card__k' }, 'Call'));
-        ph.appendChild(el('span', null, c.phone));
-        contact.appendChild(ph);
-      }
-      if (c.email) {
-        var em = el('a', { 'class': 'contact-card__email', href: 'mailto:' + c.email + '?subject=' + encodeURIComponent('The Terrigal Residence') });
-        em.appendChild(el('span', { 'class': 'contact-card__k' }, 'Email'));
-        em.appendChild(el('span', null, c.email));
-        contact.appendChild(em);
-      }
-    } else {
-      contact.appendChild(el('p', { 'class': 'contact-card__pending', role: 'note' }, 'Placeholder: owner’s name, mobile and email to be supplied'));
-    }
-  }
-
-  /* ---------- Enquiry form (sent by Web3Forms) ---------- */
   var form = document.getElementById('enquiry');
   if (form) {
     var fcfg = cfg.enquiryForm || {};
+    var provider = fcfg.provider === 'web3forms' ? 'web3forms' : 'formspree';
     var status = document.getElementById('enquiry-status');
     var submit = form.querySelector('[type="submit"]');
-    var connected = !!fcfg.accessKey;
-    function say(msg, kind) { status.textContent = msg; status.className = 'enquiry__status' + (kind ? ' is-' + kind : ''); }
+    var connected = !!fcfg.id;
+    var say = function (msg, kind) { status.textContent = msg; status.className = 'enquiry__status' + (kind ? ' is-' + kind : ''); };
+
+    // no inspection dates in the past
+    var dateIn = form.elements.preferred_date;
+    if (dateIn) {
+      var t = new Date();
+      dateIn.min = t.getFullYear() + '-' + ('0' + (t.getMonth() + 1)).slice(-2) + '-' + ('0' + t.getDate()).slice(-2);
+    }
 
     if (!connected) {
       submit.disabled = true;
       submit.classList.add('btn--pending');
-      say('Placeholder: this form is not yet connected to an email address, so it cannot send enquiries yet.', 'pending');
+      say('Placeholder: this form is not yet connected to a delivery service, so it cannot send enquiries yet. Please call or email Gavin.', 'pending');
     }
+
+    var send = function (fields) {
+      var url, body;
+      if (provider === 'formspree') {
+        url = 'https://formspree.io/f/' + encodeURIComponent(fcfg.id);
+        body = Object.assign({ _subject: fcfg.subject }, fields);
+      } else {
+        url = 'https://api.web3forms.com/submit';
+        body = Object.assign({ access_key: fcfg.id, subject: fcfg.subject, from_name: 'The Terrigal Residence website',
+                               botcheck: !!fields._gotcha }, fields);
+        delete body._gotcha;
+      }
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(body)
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          // Formspree answers { ok: true }; Web3Forms answers { success: true }
+          var ok = r.ok && (provider === 'formspree' ? j.ok === true : j.success === true);
+          if (!ok) {
+            var err = new Error('not delivered');
+            err.fields = (j.errors || []).map(function (x) { return x.field; });
+            throw err;
+          }
+        });
+      });
+    };
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!connected) return;
+      if (!connected || submit.disabled) return;
       var name = form.elements.name, email = form.elements.email;
       [name, email].forEach(function (f) { f.removeAttribute('aria-invalid'); });
-      if (!name.value.trim()) { name.setAttribute('aria-invalid', 'true'); name.focus(); say('Please enter your name.', 'error'); return; }
+      if (!name.value.trim()) { name.setAttribute('aria-invalid', 'true'); name.focus(); say('Please enter your full name.', 'error'); return; }
       if (!email.value.trim() || !email.validity.valid) { email.setAttribute('aria-invalid', 'true'); email.focus(); say('Please enter a valid email address.', 'error'); return; }
 
-      var data = {
-        access_key: fcfg.accessKey,
-        subject: fcfg.subject || 'Private inspection enquiry',
-        from_name: 'The Terrigal Residence website',
+      var fields = {
         name: name.value.trim(),
         email: email.value.trim(),
-        phone: form.elements.phone.value.trim() || 'Not given',
+        mobile: form.elements.mobile.value.trim() || 'Not given',
+        preferred_date: dateIn && dateIn.value
+          ? new Date(dateIn.value + 'T00:00:00').toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+          : 'Not given',
         message: form.elements.message.value.trim() || '(No message)',
-        botcheck: form.elements.botcheck.checked
+        _gotcha: form.elements._gotcha.value
       };
       submit.disabled = true;
       say('Sending…');
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data)
-      }).then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (j) {
-          if (!r.ok || !j.success) throw new Error(j.message || 'Not sent');
-        });
-      }).then(function () {
+      send(fields).then(function () {
+        // Delivery confirmed: hand a one-time token to the thank-you page, which records the conversion.
+        var token = 'enq-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+        var stored = false;
+        try { sessionStorage.setItem('tr-enquiry', token); stored = true; } catch (err) { /* storage blocked */ }
+        if (!stored && window.TR_TRACKING) window.TR_TRACKING.track('enquiry', 'generate_lead', { transactionId: token });
+        say('Thank you. Your enquiry has been sent.', 'ok');
         form.reset();
-        say('Thank you. Your enquiry has been sent, and we will be in touch to arrange a private inspection.', 'ok');
-        track('enquiry', 'inspection_enquiry'); // counted only once the service confirms delivery
-      }).catch(function () {
-        var alt = [c.phone ? 'call ' + c.phone : '', c.email ? 'email ' + c.email : ''].filter(Boolean).join(' or ');
-        say('Sorry, your enquiry could not be sent. Please try again' + (alt ? ', or ' + alt : '') + '.', 'error');
-      }).then(function () { submit.disabled = false; });
+        setTimeout(function () { window.location.href = 'thank-you/'; }, stored ? 0 : 800);
+      }).catch(function (err) {
+        // Nothing is counted for a failed submission.
+        var bad = (err && err.fields) || [];
+        if (bad.indexOf('email') > -1) { email.setAttribute('aria-invalid', 'true'); email.focus(); say('Please check your email address and try again.', 'error'); }
+        else say('Sorry, your enquiry could not be sent. Please try again, or call Gavin on ' + c.phone + ' or email ' + c.email + '.', 'error');
+        submit.disabled = false;
+      });
     });
   }
 
   /* ---------- Secondary actions ---------- */
   var actions = document.getElementById('actions');
   if (actions) {
-    function action(label, href, opts) {
+    var action = function (label, href, opts) {
       opts = opts || {};
       if (!href) {
         var p = el('span', { 'class': 'btn btn--pending', role: 'note' });
@@ -320,7 +305,7 @@
       var a = el('a', { 'class': 'btn', href: href }, label);
       if (opts.download) a.setAttribute('download', '');
       return a;
-    }
+    };
     actions.appendChild(action('View Floor Plans', '#plans'));
     actions.appendChild(action('Download Property Brochure', cfg.brochurePdf,
       { download: true, pending: 'Placeholder: brochure to be supplied' }));
@@ -330,12 +315,12 @@
   var quick = document.getElementById('quick-contact');
   if (quick) {
     if (c.phone) {
-      var qc = el('a', { 'class': 'quick-contact__call', href: telHref, 'aria-label': 'Call ' + c.phone });
-      qc.appendChild(el('span', null, 'Call'));
+      var qc = el('a', { 'class': 'quick-contact__call', href: 'tel:' + (c.phoneLink || c.phone.replace(/[^\d+]/g, '')) });
+      qc.appendChild(el('span', null, 'Call Gavin'));
       qc.appendChild(el('span', { 'class': 'quick-contact__num' }, c.phone));
       quick.appendChild(qc);
     }
-    quick.appendChild(el('a', { 'class': 'quick-contact__enquire', href: '#inspections' }, 'Enquire'));
+    quick.appendChild(el('a', { 'class': 'quick-contact__enquire', href: '#enquiry' }, 'Enquire'));
     quick.hidden = false;
     var pastHero = false, atEnquiry = false;
     var syncQuick = function () { quick.classList.toggle('is-shown', pastHero && !atEnquiry); };

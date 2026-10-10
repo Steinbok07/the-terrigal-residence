@@ -22,34 +22,42 @@ window.SITE_CONFIG = {
   ],
 
   contact: {
-    // The owner's details, shown in the Private Inspections section and the
-    // phone call bar. Empty values are simply left out.
-    name: '',            // e.g. 'Gavin Yates'
-    role: '',            // optional line under the name, e.g. 'Owner'
-    phone: '',           // mobile, written as it should appear, e.g. '0400 000 000'
-    email: ''            // e.g. 'enquiries@example.com'
+    // Approved public contact details. The Private Inspections section and the
+    // thank-you page show them in their own HTML. Change them there too.
+    name: 'Gavin Yates',
+    phone: '0417 687 697',          // as displayed
+    phoneLink: '+61417687697',      // for tel: links
+    email: 'gavin@steinbok.com.au'
   },
 
-  // "Request a Private Inspection" form. Sent by Web3Forms (web3forms.com)
-  // to the email address the access key was created for. Until accessKey is
-  // filled in, the form shows "not yet connected" and cannot be sent.
-  // (Web3Forms access keys are designed to sit in public web pages.)
+  // "Request a Private Inspection" form.
+  //   provider: 'formspree' (recommended) or 'web3forms'
+  //   id: the Formspree form ID (the part after formspree.io/f/, e.g. 'xyzabcde'),
+  //       or a Web3Forms access key.
+  // Both are public identifiers that are meant to sit in web pages. They are not
+  // passwords. Account logins stay with the provider and never go in this repository.
+  // Until `id` is set, the form shows "not yet connected" and cannot be sent.
   enquiryForm: {
-    accessKey: '',
+    provider: 'formspree',
+    id: '',
     subject: 'Private inspection enquiry: The Terrigal Residence'
   },
 
-  // Google Ads conversion tracking. Nothing loads until conversionId is set.
-  // From Google Ads > Goals > Conversions > (conversion) > Tag setup > "Install the tag yourself":
+  // Measurement. Nothing from Google loads until an ID is set.
+  // Google Ads: Goals > Conversions > (action) > Tag setup > "Install the tag yourself".
   //   conversionId looks like 'AW-123456789'; each label looks like 'AbCdEfGhIjK_LmNoP'.
-  // Leave a label empty to skip that action.
+  //   Leave a label empty to skip that action.
   googleAds: {
     conversionId: '',
     labels: {
-      enquiry: '',       // form successfully sent (counts only after delivery is confirmed)
-      phone: '',         // a click on the phone number
-      email: ''          // a click on the email address
+      enquiry: '',   // PRIMARY: inspection enquiry, counted on the thank-you page after confirmed delivery
+      phone: '',     // secondary: click on Gavin's phone number (a tap, not proof of a call)
+      email: ''      // secondary: click on Gavin's email address (a click, not proof of an email)
     }
+  },
+  // Google Analytics 4 measurement ID, e.g. 'G-ABC123DEF4'. Optional.
+  googleAnalytics: {
+    measurementId: ''
   },
 
   // Put the PDF in assets/brochure/ and set its path here.

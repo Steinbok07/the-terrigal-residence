@@ -552,36 +552,58 @@
       <div class="inspections__text">
         <p class="eyebrow">11 — Private Inspections</p>
         <h2 id="h-inspections">Experience The Terrigal Residence</h2>
-        <p class="lede">An exceptional coastal residence is best appreciated in person. Discover the architecture, craftsmanship and outlook that define The Terrigal Residence.</p>
+        <p class="lede">Discover the architecture, craftsmanship and coastal outlook that define this exceptional residence. Contact Gavin Yates to arrange a private inspection or request further information.</p>
 
-        <!-- Owner's contact details: filled from `contact` in assets/js/site-config.js -->
-        <div class="contact-card" id="contact"></div>
+        <!-- Owner's contact details. If they change, also update `contact` in assets/js/site-config.js
+             and thank-you/index.html. -->
+        <div class="contact-card" id="contact">
+          <p class="contact-card__label">Enquiries</p>
+          <p class="contact-card__name">Gavin Yates</p>
+          <div class="contact-actions">
+            <a class="btn btn--primary contact-actions__call" href="tel:+61417687697">
+              <span class="btn__stack"><span>Call Gavin</span><span class="btn__detail">0417 687 697</span></span>
+            </a>
+            <a class="btn" href="mailto:gavin@steinbok.com.au?subject=The%20Terrigal%20Residence">
+              <span class="btn__stack"><span>Email Gavin</span><span class="btn__detail">gavin@steinbok.com.au</span></span>
+            </a>
+            <a class="btn" href="#enquiry">Request a Private Inspection</a>
+          </div>
+        </div>
 
-        <!-- Enquiry form. Sent by Web3Forms to the owner's email; see `enquiryForm` in site-config.js.
-             Until an access key is set, the form shows as not yet connected and can't be submitted. -->
-        <form class="enquiry" id="enquiry" novalidate>
+        <!-- Inspection enquiry form, delivered by the provider set in `enquiryForm` in site-config.js.
+             Until the form ID is set, it shows as not yet connected and can't be submitted. -->
+        <form class="enquiry" id="enquiry" novalidate aria-labelledby="h-enquiry">
           <h3 class="enquiry__title" id="h-enquiry">Request a Private Inspection</h3>
           <div class="enquiry__row">
             <div class="field">
-              <label for="f-name">Name</label>
+              <label for="f-name">Full name</label>
               <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120">
             </div>
             <div class="field">
-              <label for="f-email">Email</label>
+              <label for="f-email">Email address</label>
               <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="200">
             </div>
           </div>
-          <div class="field">
-            <label for="f-phone">Phone <span class="field__opt">optional</span></label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40">
+          <div class="enquiry__row">
+            <div class="field">
+              <label for="f-phone">Mobile number <span class="field__opt">optional</span></label>
+              <input id="f-phone" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="40">
+            </div>
+            <div class="field">
+              <label for="f-date">Preferred inspection date <span class="field__opt">optional</span></label>
+              <input id="f-date" name="preferred_date" type="date">
+            </div>
           </div>
           <div class="field">
             <label for="f-message">Message <span class="field__opt">optional</span></label>
-            <textarea id="f-message" name="message" rows="4" maxlength="3000" placeholder="Preferred days or times for an inspection, or any questions about the residence."></textarea>
+            <textarea id="f-message" name="message" rows="4" maxlength="3000" placeholder="Preferred times, or any questions about the residence."></textarea>
           </div>
-          <!-- spam trap: real visitors never see or tick this -->
-          <input type="checkbox" name="botcheck" class="enquiry__trap" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="enquiry__privacy">Your details are used only to respond to your enquiry and arrange an inspection. They are not sold or shared for marketing. See the <a href="privacy.html">privacy statement</a>.</p>
+          <!-- spam trap: hidden from people, so only bots fill it in -->
+          <div class="enquiry__trap" aria-hidden="true">
+            <label for="f-gotcha">Leave this field empty</label>
+            <input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <p class="enquiry__privacy">Your details are used only to respond to your property enquiry. They are not sold or shared for marketing. <a href="privacy.html">Privacy statement</a></p>
           <button class="btn btn--primary enquiry__submit" type="submit">Send Enquiry</button>
           <p class="enquiry__status" id="enquiry-status" role="status" aria-live="polite"></p>
         </form>
@@ -617,6 +639,7 @@
   </div>
 
   <script src="assets/js/site-config.js"></script>
+  <script src="assets/js/tracking.js"></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>

@@ -20,6 +20,10 @@
     .legal a { color: var(--bronze); }
     .legal ul { padding-left: 1.2em; margin: 0 0 1.1em; }
     .legal .updated { color: var(--muted); font-size: 14px; }
+    .optout__btn { background: none; border: 1px solid var(--charcoal); padding: 10px 16px; cursor: pointer;
+                   font: 500 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--charcoal); margin-right: 12px; }
+    .optout__btn:hover { background: var(--charcoal); color: var(--ivory); }
+    #optout-state { font-size: 14px; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -40,25 +44,28 @@
     <h1>Privacy Statement</h1>
     <p class="updated">Last updated 11 October 2026</p>
 
-    <p>This statement explains how personal information is handled when you enquire about The Terrigal Residence through this website. The website is operated by the owner of the residence<span data-owner-name></span>.</p>
+    <p>This statement explains how personal information is handled when you enquire about The Terrigal Residence through this website. The website is operated by the owner of the residence, Gavin Yates.</p>
 
     <h2>What we collect</h2>
-    <p>When you send an enquiry, we collect the details you enter: your name, email address and, if you choose to give them, your phone number and message. If you call or email directly, we receive your phone number or email address in the usual way.</p>
+    <p>When you send an inspection enquiry, we collect the details you enter: your full name and email address and, if you choose to give them, your mobile number, a preferred inspection date and a message. If you call or email Gavin directly, he receives your phone number or email address in the usual way.</p>
 
     <h2>Why we collect it</h2>
-    <p>We use your details only to reply to your enquiry, arrange a private inspection and send you information about the residence that you've asked for. We don't sell your details, add you to a mailing list, or share them with anyone for marketing.</p>
+    <p>Your details are used only to respond to your property enquiry: to reply, arrange a private inspection and send information about the residence you've asked for. We don't sell your details, add you to a mailing list, or share them with anyone for marketing.</p>
 
-    <h2>How enquiries are sent</h2>
-    <p>The enquiry form is delivered by Web3Forms, a form-processing service, which passes your message to the owner's email inbox. Web3Forms and our email provider may store and process your details on servers outside Australia. See the <a href="https://web3forms.com/privacy" rel="noopener">Web3Forms privacy policy</a>.</p>
+    <h2>How enquiries are delivered</h2>
+    <p>The enquiry form is processed by Formspree, a form-handling service. Formspree checks the submission for spam and emails it to Gavin. Formspree and our email provider may store and process your details on servers outside Australia, including in the United States. See the <a href="https://formspree.io/legal/privacy-policy" rel="noopener">Formspree privacy policy</a>.</p>
 
     <h2>Advertising and measurement</h2>
-    <p>This website may use Google Ads conversion tracking to measure whether people who arrive from our advertisements go on to enquire, call or email. This uses cookies and similar technology. It records that an enquiry or contact click occurred, but doesn't send Google the contents of your enquiry. You can manage Google's use of advertising cookies at <a href="https://adssettings.google.com" rel="noopener">adssettings.google.com</a>, or block cookies in your browser.</p>
+    <p>We advertise this residence with Google Ads. To see whether the advertising works, this website may use Google Ads conversion tracking and Google Analytics. These use cookies and similar technology to record visits, and whether a visitor sends an enquiry or taps the phone number or email address. They don't send Google the contents of your enquiry. Google's use of this information is described at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">How Google uses information from sites that use its services</a>. You can manage Google ad personalisation at <a href="https://myadcenter.google.com" rel="noopener">My Ad Center</a>.</p>
+    <p>You can switch this measurement off for this website, in this browser:</p>
+    <p class="optout"><button type="button" class="optout__btn" id="optout" hidden></button> <span id="optout-state" role="status"></span></p>
+    <noscript><p>Measurement can't run without JavaScript, so it is already off in this browser.</p></noscript>
 
     <h2>How long we keep it</h2>
     <p>Enquiry details are kept only as long as needed to deal with the sale of the residence, then deleted.</p>
 
     <h2>Access, correction and questions</h2>
-    <p>You can ask to see, correct or delete the details we hold about you, or ask any question about this statement<span data-owner-contact>, using the contact details on the <a href="./#inspections">home page</a></span>.</p>
+    <p>You can ask to see, correct or delete the details we hold about you, or ask any question about this statement. Email <a href="mailto:gavin@steinbok.com.au">gavin@steinbok.com.au</a> or call <a href="tel:+61417687697">0417 687 697</a>.</p>
 
     <p><a href="./">← Back to The Terrigal Residence</a></p>
   </main>
@@ -69,17 +76,20 @@
   </footer>
 
   <script src="assets/js/site-config.js"></script>
+  <script src="assets/js/tracking.js"></script>
   <script>
-    // Fill in the owner's name and contact details from site-config.js, when they've been supplied
+    // Opt-out switch for Google Ads and Analytics measurement on this website (kept in this browser)
     (function () {
-      var c = (window.SITE_CONFIG || {}).contact || {};
-      var n = document.querySelector('[data-owner-name]');
-      if (c.name && n) n.textContent = ', ' + c.name;
-      var k = document.querySelector('[data-owner-contact]');
-      var bits = [];
-      if (c.email) bits.push('email <a href="mailto:' + c.email + '">' + c.email + '</a>');
-      if (c.phone) bits.push('call <a href="tel:' + c.phone.replace(/[^\d+]/g, '') + '">' + c.phone + '</a>');
-      if (k && bits.length) k.innerHTML = ': ' + bits.join(' or ');
+      var t = window.TR_TRACKING, btn = document.getElementById('optout'), st = document.getElementById('optout-state');
+      if (!t) return;
+      function show() {
+        var off = t.optedOut();
+        btn.textContent = off ? 'Switch measurement back on' : 'Switch measurement off';
+        st.textContent = off ? 'Measurement is off in this browser.' : 'Measurement is on in this browser.';
+      }
+      btn.hidden = false;
+      btn.addEventListener('click', function () { t.setOptOut(!t.optedOut()); show(); });
+      show();
     })();
   </script>
 </body>
