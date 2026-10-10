@@ -22,11 +22,34 @@ window.SITE_CONFIG = {
   ],
 
   contact: {
-    // Any combination may be filled in. Empty values show a placeholder.
-    name: '',            // e.g. the person handling enquiries
-    email: '',           // e.g. 'enquiries@example.com'  (opens the visitor's email app)
-    phone: '',           // e.g. '0400 000 000'
-    inspectionUrl: ''    // e.g. a booking-form link; used instead of email if set
+    // The owner's details, shown in the Private Inspections section and the
+    // phone call bar. Empty values are simply left out.
+    name: '',            // e.g. 'Gavin Yates'
+    role: '',            // optional line under the name, e.g. 'Owner'
+    phone: '',           // mobile, written as it should appear, e.g. '0400 000 000'
+    email: ''            // e.g. 'enquiries@example.com'
+  },
+
+  // "Request a Private Inspection" form. Sent by Web3Forms (web3forms.com)
+  // to the email address the access key was created for. Until accessKey is
+  // filled in, the form shows "not yet connected" and cannot be sent.
+  // (Web3Forms access keys are designed to sit in public web pages.)
+  enquiryForm: {
+    accessKey: '',
+    subject: 'Private inspection enquiry: The Terrigal Residence'
+  },
+
+  // Google Ads conversion tracking. Nothing loads until conversionId is set.
+  // From Google Ads > Goals > Conversions > (conversion) > Tag setup > "Install the tag yourself":
+  //   conversionId looks like 'AW-123456789'; each label looks like 'AbCdEfGhIjK_LmNoP'.
+  // Leave a label empty to skip that action.
+  googleAds: {
+    conversionId: '',
+    labels: {
+      enquiry: '',       // form successfully sent (counts only after delivery is confirmed)
+      phone: '',         // a click on the phone number
+      email: ''          // a click on the email address
+    }
   },
 
   // Put the PDF in assets/brochure/ and set its path here.

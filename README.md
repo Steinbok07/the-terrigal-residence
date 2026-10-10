@@ -20,14 +20,26 @@ https://steinbok07.github.io/the-terrigal-residence/ address redirects to it aut
 | `tools/build_images.py` | Regenerates the photographs from the original PNGs |
 | `tools/build_floorplans.py` | Regenerates the marketing floor plans from the CDC PDFs |
 | `tools/build_icons.py` | Regenerates `favicon.ico` and the PNG icons |
+| `privacy.html` | Privacy statement for enquiry details (linked from the form and footer) |
 | `robots.txt`, `sitemap.xml` | Tell search engines what to crawl. Update `<lastmod>` in the sitemap after content changes |
 | `CNAME` | The custom domain. Don't delete it, or the domain stops working |
 
 ## Common changes
 
-**Add contact details.** In `site-config.js`, fill in `contact.email`, `contact.phone` and/or
-`contact.inspectionUrl`. The "Request a Private Inspection" button switches from a placeholder to a
-working link on its own. If an inspection URL is set, it's used in place of email.
+**Add contact details.** In `site-config.js`, fill in `contact.name`, `contact.phone` (mobile) and
+`contact.email`. They appear in the Private Inspections section, in the call bar on phones and on
+the privacy page. Empty values are simply left out.
+
+**Connect the enquiry form.** The "Request a Private Inspection" form is delivered by Web3Forms
+(web3forms.com). Create a free access key there for the email address enquiries should go to, then
+paste it into `enquiryForm.accessKey`. Until then the form shows "not yet connected" and can't be
+sent. Send a test enquiry after connecting it, and check that it arrives (including the spam folder).
+
+**Google Ads tracking.** Fill in `googleAds.conversionId` (`AW-…`) and the conversion labels for
+`enquiry`, `phone` and `email`. Nothing from Google loads until `conversionId` is set. An enquiry
+only counts as a conversion once Web3Forms confirms it was delivered. Phone and email count on
+click. The same actions are also pushed to `dataLayer` as `inspection_enquiry`, `phone_click` and
+`email_click`.
 
 **Add the brochure.** Copy the PDF to `assets/brochure/`, then set
 `brochurePdf: 'assets/brochure/your-file.pdf'`.

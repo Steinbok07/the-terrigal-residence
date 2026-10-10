@@ -553,16 +553,52 @@
         <p class="eyebrow">11 — Private Inspections</p>
         <h2 id="h-inspections">Experience The Terrigal Residence</h2>
         <p class="lede">An exceptional coastal residence is best appreciated in person. Discover the architecture, craftsmanship and outlook that define The Terrigal Residence.</p>
+
+        <!-- Owner's contact details: filled from `contact` in assets/js/site-config.js -->
+        <div class="contact-card" id="contact"></div>
+
+        <!-- Enquiry form. Sent by Web3Forms to the owner's email; see `enquiryForm` in site-config.js.
+             Until an access key is set, the form shows as not yet connected and can't be submitted. -->
+        <form class="enquiry" id="enquiry" novalidate>
+          <h3 class="enquiry__title" id="h-enquiry">Request a Private Inspection</h3>
+          <div class="enquiry__row">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="200">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone <span class="field__opt">optional</span></label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40">
+          </div>
+          <div class="field">
+            <label for="f-message">Message <span class="field__opt">optional</span></label>
+            <textarea id="f-message" name="message" rows="4" maxlength="3000" placeholder="Preferred days or times for an inspection, or any questions about the residence."></textarea>
+          </div>
+          <!-- spam trap: real visitors never see or tick this -->
+          <input type="checkbox" name="botcheck" class="enquiry__trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="enquiry__privacy">Your details are used only to respond to your enquiry and arrange an inspection. They are not sold or shared for marketing. See the <a href="privacy.html">privacy statement</a>.</p>
+          <button class="btn btn--primary enquiry__submit" type="submit">Send Enquiry</button>
+          <p class="enquiry__status" id="enquiry-status" role="status" aria-live="polite"></p>
+        </form>
+
         <div class="actions" id="actions"><!-- filled from assets/js/site-config.js --></div>
-        <div class="contact" id="contact"></div>
         <button class="text-link" type="button" data-goto="1">View all sixteen photographs</button>
       </div>
     </section>
   </main>
 
+  <!-- Phones only: a slim call / enquire bar that appears once past the opening photograph -->
+  <div class="quick-contact" id="quick-contact" hidden></div>
+
   <footer class="site-footer">
     <p class="site-footer__name">The Terrigal Residence</p>
     <p>Terrigal · Central Coast · NSW</p>
+    <p class="site-footer__links"><a href="#inspections">Enquire</a> <span aria-hidden="true">·</span> <a href="privacy.html">Privacy</a></p>
     <p class="site-footer__fine">The information on this site is provided as a general guide only. Interested parties should make their own enquiries to verify all details. Floor area is approximate and subject to confirmation.</p>
   </footer>
 

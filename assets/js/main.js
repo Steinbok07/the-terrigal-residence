@@ -197,13 +197,118 @@
     show(fpCfg.defaultLevel || entries[0].id);
   }
 
-  /* ---------- Enquiry actions ---------- */
+  /* ---------- Google Ads conversion tracking ----------
+     Loads only once googleAds.conversionId is set in site-config.js. Every
+     contact action is also pushed to dataLayer (inspection_enquiry,
+     phone_click, email_click) so a Tag Manager container could use them too. */
+  var ads = cfg.googleAds || {};
+  var adsLabels = ads.labels || {};
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  if (ads.conversionId) {
+    var gs = document.createElement('script');
+    gs.async = true;
+    gs.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ads.conversionId);
+    document.head.appendChild(gs);
+    gtag('js', new Date());
+    gtag('config', ads.conversionId);
+  }
+  function track(action, eventName) {
+    window.dataLayer.push({ event: eventName });
+    var label = adsLabels[action];
+    if (ads.conversionId && label) gtag('event', 'conversion', { send_to: ads.conversionId + '/' + label });
+  }
+  // Phone and email clicks anywhere on the page
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!a) return;
+    if (a.getAttribute('href').indexOf('tel:') === 0) track('phone', 'phone_click');
+    else track('email', 'email_click');
+  });
+
+  /* ---------- Contact details ---------- */
+  var c = cfg.contact || {};
+  var telHref = c.phone ? 'tel:' + c.phone.replace(/[^\d+]/g, '') : '';
+  var contact = document.getElementById('contact');
+  if (contact) {
+    if (c.name || c.phone || c.email) {
+      contact.appendChild(el('p', { 'class': 'contact-card__label' }, 'Enquiries'));
+      if (c.name) contact.appendChild(el('p', { 'class': 'contact-card__name' }, c.name));
+      if (c.role) contact.appendChild(el('p', { 'class': 'contact-card__role' }, c.role));
+      if (c.phone) {
+        var ph = el('a', { 'class': 'contact-card__phone', href: telHref, 'aria-label': 'Call ' + c.phone });
+        ph.appendChild(el('span', { 'class': 'contact-card__k' }, 'Call'));
+        ph.appendChild(el('span', null, c.phone));
+        contact.appendChild(ph);
+      }
+      if (c.email) {
+        var em = el('a', { 'class': 'contact-card__email', href: 'mailto:' + c.email + '?subject=' + encodeURIComponent('The Terrigal Residence') });
+        em.appendChild(el('span', { 'class': 'contact-card__k' }, 'Email'));
+        em.appendChild(el('span', null, c.email));
+        contact.appendChild(em);
+      }
+    } else {
+      contact.appendChild(el('p', { 'class': 'contact-card__pending', role: 'note' }, 'Placeholder: owner’s name, mobile and email to be supplied'));
+    }
+  }
+
+  /* ---------- Enquiry form (sent by Web3Forms) ---------- */
+  var form = document.getElementById('enquiry');
+  if (form) {
+    var fcfg = cfg.enquiryForm || {};
+    var status = document.getElementById('enquiry-status');
+    var submit = form.querySelector('[type="submit"]');
+    var connected = !!fcfg.accessKey;
+    function say(msg, kind) { status.textContent = msg; status.className = 'enquiry__status' + (kind ? ' is-' + kind : ''); }
+
+    if (!connected) {
+      submit.disabled = true;
+      submit.classList.add('btn--pending');
+      say('Placeholder: this form is not yet connected to an email address, so it cannot send enquiries yet.', 'pending');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!connected) return;
+      var name = form.elements.name, email = form.elements.email;
+      [name, email].forEach(function (f) { f.removeAttribute('aria-invalid'); });
+      if (!name.value.trim()) { name.setAttribute('aria-invalid', 'true'); name.focus(); say('Please enter your name.', 'error'); return; }
+      if (!email.value.trim() || !email.validity.valid) { email.setAttribute('aria-invalid', 'true'); email.focus(); say('Please enter a valid email address.', 'error'); return; }
+
+      var data = {
+        access_key: fcfg.accessKey,
+        subject: fcfg.subject || 'Private inspection enquiry',
+        from_name: 'The Terrigal Residence website',
+        name: name.value.trim(),
+        email: email.value.trim(),
+        phone: form.elements.phone.value.trim() || 'Not given',
+        message: form.elements.message.value.trim() || '(No message)',
+        botcheck: form.elements.botcheck.checked
+      };
+      submit.disabled = true;
+      say('Sending…');
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok || !j.success) throw new Error(j.message || 'Not sent');
+        });
+      }).then(function () {
+        form.reset();
+        say('Thank you. Your enquiry has been sent, and we will be in touch to arrange a private inspection.', 'ok');
+        track('enquiry', 'inspection_enquiry'); // counted only once the service confirms delivery
+      }).catch(function () {
+        var alt = [c.phone ? 'call ' + c.phone : '', c.email ? 'email ' + c.email : ''].filter(Boolean).join(' or ');
+        say('Sorry, your enquiry could not be sent. Please try again' + (alt ? ', or ' + alt : '') + '.', 'error');
+      }).then(function () { submit.disabled = false; });
+    });
+  }
+
+  /* ---------- Secondary actions ---------- */
   var actions = document.getElementById('actions');
   if (actions) {
-    var c = cfg.contact || {};
-    var inspectHref = c.inspectionUrl ||
-      (c.email ? 'mailto:' + c.email + '?subject=' + encodeURIComponent('Private inspection — The Terrigal Residence') : '');
-
     function action(label, href, opts) {
       opts = opts || {};
       if (!href) {
@@ -212,27 +317,34 @@
         p.appendChild(el('span', { 'class': 'btn__note' }, opts.pending));
         return p;
       }
-      var a = el('a', { 'class': 'btn' + (opts.primary ? ' btn--primary' : ''), href: href }, label);
+      var a = el('a', { 'class': 'btn', href: href }, label);
       if (opts.download) a.setAttribute('download', '');
-      if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; }
       return a;
     }
-
-    actions.appendChild(action('Request a Private Inspection', inspectHref,
-      { primary: true, pending: 'Placeholder — contact details to be supplied' }));
     actions.appendChild(action('View Floor Plans', '#plans'));
     actions.appendChild(action('Download Property Brochure', cfg.brochurePdf,
-      { download: true, pending: 'Placeholder — brochure to be supplied' }));
+      { download: true, pending: 'Placeholder: brochure to be supplied' }));
+  }
 
-    var contact = document.getElementById('contact');
-    var bits = [];
-    if (c.name) bits.push(document.createTextNode(c.name));
-    if (c.phone) bits.push(el('a', { href: 'tel:' + c.phone.replace(/[^\d+]/g, '') }, c.phone));
-    if (c.email) bits.push(el('a', { href: 'mailto:' + c.email }, c.email));
-    bits.forEach(function (b, i) {
-      if (i) contact.appendChild(document.createTextNode('  ·  '));
-      contact.appendChild(b);
-    });
+  /* ---------- Call / enquire bar (small screens) ---------- */
+  var quick = document.getElementById('quick-contact');
+  if (quick) {
+    if (c.phone) {
+      var qc = el('a', { 'class': 'quick-contact__call', href: telHref, 'aria-label': 'Call ' + c.phone });
+      qc.appendChild(el('span', null, 'Call'));
+      qc.appendChild(el('span', { 'class': 'quick-contact__num' }, c.phone));
+      quick.appendChild(qc);
+    }
+    quick.appendChild(el('a', { 'class': 'quick-contact__enquire', href: '#inspections' }, 'Enquire'));
+    quick.hidden = false;
+    var pastHero = false, atEnquiry = false;
+    var syncQuick = function () { quick.classList.toggle('is-shown', pastHero && !atEnquiry); };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { pastHero = !en[0].isIntersecting; syncQuick(); })
+        .observe(document.querySelector('.arrival'));
+      new IntersectionObserver(function (en) { atEnquiry = en[0].isIntersecting; syncQuick(); })
+        .observe(document.getElementById('inspections'));
+    } else { pastHero = true; syncQuick(); }
   }
 
   /* ---------- Full-screen viewer ---------- */

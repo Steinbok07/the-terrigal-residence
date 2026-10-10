@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Statement | The Terrigal Residence</title>
+  <meta name="description" content="How enquiry details sent through The Terrigal Residence website are collected, used and kept.">
+  <link rel="canonical" href="https://terrigalhousesforsale.com.au/privacy.html">
+  <meta name="theme-color" content="#F6F2EB">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .legal { max-width: 720px; margin: 0 auto; padding: calc(var(--header-h) + 48px) var(--gutter) 96px; }
+    .legal h1 { font-size: clamp(2.3rem, 4.6vw, 3.6rem); line-height: 1.05; margin-bottom: .6em; }
+    .legal h2 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); margin: 1.8em 0 .5em; }
+    .legal a { color: var(--bronze); }
+    .legal ul { padding-left: 1.2em; margin: 0 0 1.1em; }
+    .legal .updated { color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header class="site-header is-scrolled">
+    <div class="site-header__inner">
+      <a class="wordmark" href="./"><span class="wordmark__the">The</span> Terrigal Residence</a>
+      <nav class="nav" aria-label="Site">
+        <ul class="nav__list">
+          <li><a href="./">The Residence</a></li>
+          <li><a class="nav__enquire" href="./#inspections">Enquire</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="legal" id="main">
+    <p class="eyebrow">The Terrigal Residence</p>
+    <h1>Privacy Statement</h1>
+    <p class="updated">Last updated 11 October 2026</p>
+
+    <p>This statement explains how personal information is handled when you enquire about The Terrigal Residence through this website. The website is operated by the owner of the residence<span data-owner-name></span>.</p>
+
+    <h2>What we collect</h2>
+    <p>When you send an enquiry, we collect the details you enter: your name, email address and, if you choose to give them, your phone number and message. If you call or email directly, we receive your phone number or email address in the usual way.</p>
+
+    <h2>Why we collect it</h2>
+    <p>We use your details only to reply to your enquiry, arrange a private inspection and send you information about the residence that you've asked for. We don't sell your details, add you to a mailing list, or share them with anyone for marketing.</p>
+
+    <h2>How enquiries are sent</h2>
+    <p>The enquiry form is delivered by Web3Forms, a form-processing service, which passes your message to the owner's email inbox. Web3Forms and our email provider may store and process your details on servers outside Australia. See the <a href="https://web3forms.com/privacy" rel="noopener">Web3Forms privacy policy</a>.</p>
+
+    <h2>Advertising and measurement</h2>
+    <p>This website may use Google Ads conversion tracking to measure whether people who arrive from our advertisements go on to enquire, call or email. This uses cookies and similar technology. It records that an enquiry or contact click occurred, but doesn't send Google the contents of your enquiry. You can manage Google's use of advertising cookies at <a href="https://adssettings.google.com" rel="noopener">adssettings.google.com</a>, or block cookies in your browser.</p>
+
+    <h2>How long we keep it</h2>
+    <p>Enquiry details are kept only as long as needed to deal with the sale of the residence, then deleted.</p>
+
+    <h2>Access, correction and questions</h2>
+    <p>You can ask to see, correct or delete the details we hold about you, or ask any question about this statement<span data-owner-contact>, using the contact details on the <a href="./#inspections">home page</a></span>.</p>
+
+    <p><a href="./">← Back to The Terrigal Residence</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="site-footer__name">The Terrigal Residence</p>
+    <p>Terrigal · Central Coast · NSW</p>
+  </footer>
+
+  <script src="assets/js/site-config.js"></script>
+  <script>
+    // Fill in the owner's name and contact details from site-config.js, when they've been supplied
+    (function () {
+      var c = (window.SITE_CONFIG || {}).contact || {};
+      var n = document.querySelector('[data-owner-name]');
+      if (c.name && n) n.textContent = ', ' + c.name;
+      var k = document.querySelector('[data-owner-contact]');
+      var bits = [];
+      if (c.email) bits.push('email <a href="mailto:' + c.email + '">' + c.email + '</a>');
+      if (c.phone) bits.push('call <a href="tel:' + c.phone.replace(/[^\d+]/g, '') + '">' + c.phone + '</a>');
+      if (k && bits.length) k.innerHTML = ': ' + bits.join(' or ');
+    })();
+  </script>
+</body>
+</html>
