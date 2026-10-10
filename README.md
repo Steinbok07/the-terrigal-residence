@@ -3,7 +3,8 @@
 A single-page architectural brochure for a renovated three-level coastal home in Terrigal, NSW.
 It's a plain static site (HTML, CSS and a little JavaScript, with no build step) built for GitHub Pages.
 
-**Intended address:** https://steinbok07.github.io/the-terrigal-residence/
+**Address:** https://terrigalhousesforsale.com.au/ (custom domain, set by the `CNAME` file). The old
+https://steinbok07.github.io/the-terrigal-residence/ address redirects to it automatically.
 
 ## What's where
 
@@ -18,6 +19,9 @@ It's a plain static site (HTML, CSS and a little JavaScript, with no build step)
 | `assets/brochure/` | The PDF brochure goes here |
 | `tools/build_images.py` | Regenerates the photographs from the original PNGs |
 | `tools/build_floorplans.py` | Regenerates the marketing floor plans from the CDC PDFs |
+| `tools/build_icons.py` | Regenerates `favicon.ico` and the PNG icons |
+| `robots.txt`, `sitemap.xml` | Tell search engines what to crawl. Update `<lastmod>` in the sitemap after content changes |
+| `CNAME` | The custom domain. Don't delete it, or the domain stops working |
 
 ## Common changes
 
@@ -38,7 +42,9 @@ website folder, as anything in it becomes publicly reachable once published. For
 review privately, add a second argument with a folder outside the website. The floor list and
 room summaries on the site are set in `floorPlans` in `site-config.js`.
 
-**Change specifications.** Edit the `specs` list. Remove the `note` from the floor-area line once
+**Change specifications.** Edit the `specs` list, and the matching written-out list inside
+`<dl id="specs">` in `index.html` (it's there so search engines can read the facts without running
+scripts). Remove the `note` from the floor-area line once
 the area is confirmed.
 
 **Change wording.** Edit the text in `index.html`. Each section is marked with a comment such as
@@ -57,8 +63,12 @@ remove its link in both the header nav and the `#menu` list.
 
 ## Rules this site follows
 
-- All paths are relative (no leading `/`), so the site works under the `/the-terrigal-residence/`
-  subpath. Keep it that way.
+- Page paths are relative (no leading `/`), so the site works both at the domain root and in the local
+  preview subpath. Absolute `https://terrigalhousesforsale.com.au/` addresses are used only where
+  they must be (canonical link, social previews, structured data, sitemap). `404.html` uses
+  root paths because GitHub serves it at any address.
+- Search copy stays truthful and readable: no hidden keywords, no invented prices, agents,
+  ratings, coordinates or floor-area certification in the page or in the structured data.
 - Placeholders are deliberately visible. Don't swap them for buttons that don't do anything.
 - Only verified facts go in: no invented measurements, brands, certifications or room-by-level
   assignments, and no claims of accessibility compliance for the lift.
@@ -67,12 +77,12 @@ remove its link in both the header nav and the `#menu` list.
 ## Previewing locally
 
 From the folder *above* this one: `python -m http.server 4173`, then open
-http://localhost:4173/the-terrigal-residence/ (this matches the GitHub Pages subpath).
+http://localhost:4173/the-terrigal-residence/.
 
 ## Publishing
 
-Live site: **https://steinbok07.github.io/the-terrigal-residence/** (GitHub Pages, deployed from
-the `main` branch of this repository). Keep this address unchanged.
+Live site: **https://terrigalhousesforsale.com.au/** (GitHub Pages, deployed from the `main` branch
+of this repository).
 
 - `main` = what's live. Anything pushed to `main` is published within about a minute.
 - `dev` = work in progress. Make and check all changes on `dev` in the local preview first.

@@ -15,6 +15,7 @@
   /* ---------- Specifications ---------- */
   var specs = document.getElementById('specs');
   if (specs && cfg.specs) {
+    specs.textContent = ''; // replace the written-out copy in index.html
     var notes = [];
     cfg.specs.forEach(function (s) {
       var row = el('div');

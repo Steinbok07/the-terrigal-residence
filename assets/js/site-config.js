@@ -7,7 +7,9 @@
  *
  * Paths are relative to the site root, with no leading slash
  * (e.g. 'assets/brochure/the-terrigal-residence.pdf'), so they work at
- * https://steinbok07.github.io/the-terrigal-residence/
+ * https://terrigalhousesforsale.com.au/ and in the local preview.
+ *
+ * If you change `specs`, change the written-out copy in index.html (<dl id="specs">) to match.
  */
 window.SITE_CONFIG = {
   specs: [

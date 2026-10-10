@@ -18,22 +18,22 @@ from PIL import Image
 
 PHOTOS = {
     # slug: original filename
-    "living-room": "Coastal Living Room with Ocean View.png",  # homepage hero
-    "exterior-street": "Modern Coastal Townhouse Exterior.png",
-    "exterior-garage": "Modern Coastal Home with Open Garage.png",
-    "living-glass": "Sunlit Coastal Glass Living Room.png",
-    "balcony-sunrise": "Sunrise Balcony Overlooking Terrigal.png",
-    "upper-room": "Bright Coastal Loft with Ocean Views.png",
-    "kitchen": "Warm Minimalist Kitchen with Integrated Fridge.png",
-    "kitchen-u": "Warm Minimalist U-Shaped Kitchen.png",
-    "master-bedroom": "Sunlit Bedroom with Coastal Views.png",
-    "bath-vanity": "Luxurious Ribbed Oak Vanity Bathroom.png",
-    "bath-tub": "Luxury Taupe Bathroom with Freestanding Tub.png",
-    "stair-lit": "Minimalist Coastal Stairwell with Warm Lighting.png",
-    "stair-pendant": "Scandinavian Stairwell with Wicker Pendant.png",
-    "lift": "Modern Home Lift in Warm Minimalist Hallway.png",
-    "laundry": "Scandinavian Oak Laundry Room.png",
-    "courtyard": "Minimalist Courtyard with Linear Drains.png",
+    "terrigal-ocean-view-living-room": "Coastal Living Room with Ocean View.png",  # homepage hero
+    "terrigal-three-level-residence-exterior": "Modern Coastal Townhouse Exterior.png",
+    "terrigal-residence-double-garage": "Modern Coastal Home with Open Garage.png",
+    "terrigal-sunlit-living-room-ocean-view": "Sunlit Coastal Glass Living Room.png",
+    "terrigal-balcony-sunrise-ocean-view": "Sunrise Balcony Overlooking Terrigal.png",
+    "terrigal-upper-level-room-ocean-view": "Bright Coastal Loft with Ocean Views.png",
+    "terrigal-contemporary-kitchen": "Warm Minimalist Kitchen with Integrated Fridge.png",
+    "terrigal-kitchen-waterfall-stone-benchtop": "Warm Minimalist U-Shaped Kitchen.png",
+    "terrigal-master-bedroom-balcony-views": "Sunlit Bedroom with Coastal Views.png",
+    "terrigal-bathroom-ribbed-timber-vanity": "Luxurious Ribbed Oak Vanity Bathroom.png",
+    "terrigal-bathroom-fluted-bath": "Luxury Taupe Bathroom with Freestanding Tub.png",
+    "terrigal-residence-timber-staircase": "Minimalist Coastal Stairwell with Warm Lighting.png",
+    "terrigal-residence-stairwell-pendant": "Scandinavian Stairwell with Wicker Pendant.png",
+    "terrigal-residence-private-internal-lift": "Modern Home Lift in Warm Minimalist Hallway.png",
+    "terrigal-residence-laundry": "Scandinavian Oak Laundry Room.png",
+    "terrigal-residence-private-courtyard": "Minimalist Courtyard with Linear Drains.png",
 }
 # Superseded and deliberately excluded: "Minimal Coastal Living Space with Ocean Views.png"
 
@@ -55,10 +55,10 @@ def main(src):
             out = im if tw == w else im.resize((tw, th), Image.LANCZOS)
             out.save(os.path.join(OUT, f"{slug}-{tw}.webp"), "WEBP", quality=QUALITY, method=6)
         srcset = ", ".join(f"assets/img/photos/{slug}-{x}.webp {x}w" for x in widths)
-        print(f"{slug:16} {w}x{h}  {srcset}")
+        print(f"{slug:42} {w}x{h}  {srcset}")
 
     # Social preview, 1200x630, centred crop of the hero
-    hero = Image.open(os.path.join(src, PHOTOS["living-room"])).convert("RGB")
+    hero = Image.open(os.path.join(src, PHOTOS["terrigal-ocean-view-living-room"])).convert("RGB")
     w, h = hero.size
     ch = round(w * 630 / 1200)
     top = (h - ch) // 2
