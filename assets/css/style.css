@@ -2,16 +2,25 @@
    THE TERRIGAL RESIDENCE
    Palette and type are set once here; change a token to restyle the site.
    ===================================================================== */
+/* Fonts: Cormorant Garamond and Jost (SIL Open Font License), latin subset from Google Fonts,
+   served from this site so they arrive with the page. Variable fonts: one file covers 300 to 500. */
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 300 500; font-display: swap;
+  src: url("../fonts/cormorant-garamond-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 300 400; font-display: swap;
+  src: url("../fonts/cormorant-garamond-italic-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Jost"; font-style: normal; font-weight: 300 500; font-display: swap;
+  src: url("../fonts/jost-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 :root {
   --warm-white: #FBF9F5;
   --ivory: #F6F2EB;
   --sand: #EAE1D3;
   --limestone: #D9CFBF;
   --oak: #A9845A;
-  --bronze: #8C6A47;
+  --bronze: #866545;
   --charcoal: #2A2724;
   --ink: #3B3631;
-  --muted: #7B7268;
+  --muted: #746B61;
   --line: rgba(42, 39, 36, .16);
   --line-light: rgba(246, 242, 235, .22);
 
@@ -149,6 +158,22 @@ p { margin: 0 0 1.1em; }
   font: italic 300 clamp(1.25rem, 2.1vw, 1.9rem)/1.25 var(--serif); color: var(--charcoal); margin-bottom: .7em;
 }
 .masthead__place { font: 500 11px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--bronze); margin: 0; }
+.keyfacts {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 40px;
+  margin: 0 var(--gutter); padding: 14px 0 16px; border-top: 1px solid var(--line);
+}
+.keyfacts__list {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; row-gap: 4px;
+  font: 500 10.5px/1.7 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink);
+}
+.keyfacts__list li + li::before { content: "·"; margin: 0 .85em; color: var(--bronze); }
+.keyfacts__cta {
+  font: 500 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--charcoal);
+  text-decoration: none; border-bottom: 1px solid var(--bronze); padding-bottom: 6px; white-space: nowrap;
+}
+.keyfacts__cta::after { content: "→"; margin-left: 10px; letter-spacing: 0; display: inline-block; transition: transform .4s var(--ease); }
+.keyfacts__cta:hover { color: var(--bronze); }
+.keyfacts__cta:hover::after { transform: translateX(4px); }
 .plate--hero .plate__btn { background: var(--sand); }
 .plate--hero figcaption { padding-bottom: 18px; }
 .scroll-cue {
@@ -170,6 +195,11 @@ p { margin: 0 0 1.1em; }
 }
 @media (max-width: 760px) {
   .masthead__title { white-space: normal; font-size: clamp(2.9rem, 13vw, 4.6rem); }
+  .keyfacts { gap: 12px; padding: 12px 0 14px; }
+  .keyfacts__list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; font-size: 10px; letter-spacing: .16em; }
+  .keyfacts__list li + li::before { content: none; }
+  .keyfacts__list li:nth-child(3) { grid-column: 1 / -1; }
+  .keyfacts__cta { padding: 13px 0 7px; }
   .scroll-cue { display: none; }
 }
 
@@ -379,6 +409,7 @@ p { margin: 0 0 1.1em; }
 }
 .inspections__plate .plate__btn { background: #1f1d1b; }
 .inspections__plate figcaption { color: rgba(234, 225, 211, .6); padding: 0 var(--gutter) 20px; }
+.inspections__plate .plate__no { color: #B89A74; }
 .inspections__text { padding: clamp(56px, 8vw, 120px) var(--gutter); max-width: 640px; }
 .inspections h2 { color: var(--ivory); }
 .inspections .lede { color: var(--sand); }
@@ -401,7 +432,7 @@ p { margin: 0 0 1.1em; }
 }
 .btn--pending::after { content: none; }
 .btn--pending:hover { background: none; color: rgba(234, 225, 211, .55); border-color: var(--line-light); }
-.btn__note { font-size: 10px; letter-spacing: .14em; color: var(--oak); text-transform: none; font-weight: 400; letter-spacing: .04em; }
+.btn__note { font-size: 10px; letter-spacing: .14em; color: #B89A74; text-transform: none; font-weight: 400; letter-spacing: .04em; }
 
 /* Owner's contact card */
 .contact-card { margin: 2.4em 0 0; padding: 26px 0; border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }
@@ -421,7 +452,7 @@ p { margin: 0 0 1.1em; }
 .enquiry__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; align-items: end; }
 .field { margin-bottom: 20px; }
 .field label { display: block; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--limestone); margin-bottom: 6px; }
-.field__opt { letter-spacing: .06em; text-transform: none; color: rgba(217, 207, 191, .6); margin-left: 6px; }
+.field__opt { letter-spacing: .06em; text-transform: none; color: rgba(217, 207, 191, .82); margin-left: 6px; }
 .field input, .field textarea {
   width: 100%; background: rgba(246, 242, 235, .04); border: 0; border-bottom: 1px solid var(--line-light);
   color: var(--ivory); font: 400 16px/1.5 var(--sans); padding: 10px 12px; border-radius: 0;

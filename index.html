@@ -33,12 +33,12 @@
 
   <!-- Start fetching the hero photograph (the largest thing on screen) straight away -->
   <link rel="preload" as="image" type="image/webp" fetchpriority="high"
-        imagesrcset="assets/img/photos/terrigal-ocean-view-living-room-480.webp 480w, assets/img/photos/terrigal-ocean-view-living-room-960.webp 960w, assets/img/photos/terrigal-ocean-view-living-room-1672.webp 1672w"
+        imagesrcset="assets/img/photos/terrigal-ocean-view-living-room-480.webp 480w, assets/img/photos/terrigal-ocean-view-living-room-720.webp 720w, assets/img/photos/terrigal-ocean-view-living-room-960.webp 960w, assets/img/photos/terrigal-ocean-view-living-room-1672.webp 1672w"
         imagesizes="100vw">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+  <link rel="preload" href="assets/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/cormorant-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
 
   <script>document.documentElement.classList.add('js');</script>
@@ -113,8 +113,8 @@
   </script>
   <!-- Settings, then the Google tag (Google Ads AW-10939426204). tracking.js installs the standard
        gtag.js snippet with consent defaults and the visitor opt-out, once per page. -->
-  <script src="assets/js/site-config.js"></script>
-  <script src="assets/js/tracking.js"></script>
+  <script src="assets/js/site-config.js" defer></script>
+  <script src="assets/js/tracking.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -170,10 +170,23 @@
         </div>
       </div>
 
+      <!-- Key facts and the inspection action, visible on arrival (no overlay on the photograph) -->
+      <div class="keyfacts">
+        <ul class="keyfacts__list" aria-label="Key features">
+          <li>4 Bedrooms</li>
+          <li>3 Bathrooms</li>
+          <li>Private Lift to Three Levels</li>
+          <li>Double Garage</li>
+          <li>Ocean Views</li>
+          <li>Extensively Renovated</li>
+        </ul>
+        <a class="keyfacts__cta" href="#enquiry">Arrange a Private Inspection</a>
+      </div>
+
       <figure class="plate plate--hero">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-ocean-view-living-room-1672.webp"
-               srcset="assets/img/photos/terrigal-ocean-view-living-room-480.webp 480w, assets/img/photos/terrigal-ocean-view-living-room-960.webp 960w, assets/img/photos/terrigal-ocean-view-living-room-1672.webp 1672w"
+               srcset="assets/img/photos/terrigal-ocean-view-living-room-480.webp 480w, assets/img/photos/terrigal-ocean-view-living-room-720.webp 720w, assets/img/photos/terrigal-ocean-view-living-room-960.webp 960w, assets/img/photos/terrigal-ocean-view-living-room-1672.webp 1672w"
                sizes="100vw" width="1672" height="941" fetchpriority="high" decoding="async"
                alt="Ocean-view living room at The Terrigal Residence, with a recessed coffered ceiling washed in warm light, oak-toned timber floor, full-width glazed doors framed by linen curtains opening to a deck and the ocean, and ribbed timber cabinetry along the right wall">
         </button>
@@ -199,7 +212,7 @@
         <figure class="plate plate--portrait residence__plate reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-three-level-residence-exterior-960.webp"
-                 srcset="assets/img/photos/terrigal-three-level-residence-exterior-480.webp 480w, assets/img/photos/terrigal-three-level-residence-exterior-960.webp 960w, assets/img/photos/terrigal-three-level-residence-exterior-1024.webp 1024w"
+                 srcset="assets/img/photos/terrigal-three-level-residence-exterior-480.webp 480w, assets/img/photos/terrigal-three-level-residence-exterior-720.webp 720w, assets/img/photos/terrigal-three-level-residence-exterior-960.webp 960w, assets/img/photos/terrigal-three-level-residence-exterior-1024.webp 1024w"
                  sizes="(min-width: 900px) 46vw, 100vw" width="1024" height="1536" loading="lazy" decoding="async"
                  alt="Street view of the three-level Terrigal residence: a gabled entry portico with full-height glazing, a grey garage door, sandstone retaining walls, and three levels of balconies with frameless glass balustrades above">
           </button>
@@ -218,7 +231,7 @@
       <figure class="plate plate--wide reveal">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-sunlit-living-room-ocean-view-1448.webp"
-               srcset="assets/img/photos/terrigal-sunlit-living-room-ocean-view-480.webp 480w, assets/img/photos/terrigal-sunlit-living-room-ocean-view-960.webp 960w, assets/img/photos/terrigal-sunlit-living-room-ocean-view-1448.webp 1448w"
+               srcset="assets/img/photos/terrigal-sunlit-living-room-ocean-view-480.webp 480w, assets/img/photos/terrigal-sunlit-living-room-ocean-view-720.webp 720w, assets/img/photos/terrigal-sunlit-living-room-ocean-view-960.webp 960w, assets/img/photos/terrigal-sunlit-living-room-ocean-view-1448.webp 1448w"
                sizes="(min-width: 1400px) 1300px, 100vw" width="1448" height="1086" loading="lazy" decoding="async"
                alt="Sunlit Terrigal living room with a wall of glazed doors and highlight windows beneath a softly lit ceiling, sheer white curtains, and a timber deck with glass balustrade overlooking rooftops to the ocean">
         </button>
@@ -233,7 +246,7 @@
         <figure class="plate plate--offset reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-upper-level-room-ocean-view-960.webp"
-                 srcset="assets/img/photos/terrigal-upper-level-room-ocean-view-480.webp 480w, assets/img/photos/terrigal-upper-level-room-ocean-view-960.webp 960w, assets/img/photos/terrigal-upper-level-room-ocean-view-1671.webp 1671w"
+                 srcset="assets/img/photos/terrigal-upper-level-room-ocean-view-480.webp 480w, assets/img/photos/terrigal-upper-level-room-ocean-view-720.webp 720w, assets/img/photos/terrigal-upper-level-room-ocean-view-960.webp 960w, assets/img/photos/terrigal-upper-level-room-ocean-view-1671.webp 1671w"
                  sizes="(min-width: 900px) 58vw, 100vw" width="1671" height="941" loading="lazy" decoding="async"
                  alt="Upper-level room in the Terrigal residence with a raked ceiling, ceiling fan, vertically panelled wall and timber floor, where sunlight falls through glazed doors that open to a deck and an ocean view">
           </button>
@@ -252,7 +265,7 @@
       <figure class="plate plate--wide reveal">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-contemporary-kitchen-1672.webp"
-               srcset="assets/img/photos/terrigal-contemporary-kitchen-480.webp 480w, assets/img/photos/terrigal-contemporary-kitchen-960.webp 960w, assets/img/photos/terrigal-contemporary-kitchen-1672.webp 1672w"
+               srcset="assets/img/photos/terrigal-contemporary-kitchen-480.webp 480w, assets/img/photos/terrigal-contemporary-kitchen-720.webp 720w, assets/img/photos/terrigal-contemporary-kitchen-960.webp 960w, assets/img/photos/terrigal-contemporary-kitchen-1672.webp 1672w"
                sizes="(min-width: 1400px) 1300px, 100vw" width="1672" height="941" loading="lazy" decoding="async"
                alt="Contemporary kitchen in the Terrigal residence, with timber-finish overhead cabinetry above a softly lit tiled splashback, white tall cabinetry with an integrated refrigerator, black cooktop, oven and sink, and a stone-topped peninsula with a slatted timber base">
         </button>
@@ -263,7 +276,7 @@
         <figure class="plate plate--portrait living__plate reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-941.webp"
-                 srcset="assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-480.webp 480w, assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-480.webp 480w, assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-720.webp 720w, assets/img/photos/terrigal-kitchen-waterfall-stone-benchtop-941.webp 941w"
                  sizes="(min-width: 900px) 38vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="U-shaped kitchen seen from above, with a veined stone benchtop that falls to the floor in a waterfall edge, handleless white base cabinets, a black sink and tapware, and timber overhead cabinetry with under-cabinet lighting">
           </button>
@@ -300,7 +313,7 @@
       <figure class="plate plate--wide retreats__bedroom reveal">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-master-bedroom-balcony-views-1448.webp"
-               srcset="assets/img/photos/terrigal-master-bedroom-balcony-views-480.webp 480w, assets/img/photos/terrigal-master-bedroom-balcony-views-960.webp 960w, assets/img/photos/terrigal-master-bedroom-balcony-views-1448.webp 1448w"
+               srcset="assets/img/photos/terrigal-master-bedroom-balcony-views-480.webp 480w, assets/img/photos/terrigal-master-bedroom-balcony-views-720.webp 720w, assets/img/photos/terrigal-master-bedroom-balcony-views-960.webp 960w, assets/img/photos/terrigal-master-bedroom-balcony-views-1448.webp 1448w"
                sizes="(min-width: 1400px) 1300px, 100vw" width="1448" height="1086" loading="lazy" decoding="async"
                alt="Terrigal master bedroom with balcony and ocean views: a raked ceiling, triangular highlight windows and a ceiling fan, sunlit carpet, a large window with a roller blind framing palms, and glazed doors opening to a tiled balcony with a glass balustrade and views over rooftops to the ocean">
         </button>
@@ -317,7 +330,7 @@
         <figure class="plate plate--portrait retreats__plate reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-941.webp"
-                 srcset="assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-480.webp 480w, assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-480.webp 480w, assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-720.webp 720w, assets/img/photos/terrigal-bathroom-ribbed-timber-vanity-941.webp 941w"
                  sizes="(min-width: 900px) 44vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="Bathroom vanity with ribbed timber doors and drawers, brass-toned handles, a white stone top carrying twin round basins with tall brass-toned mixers, and a large arched mirror set against stone-look wall tiles">
           </button>
@@ -328,7 +341,7 @@
       <figure class="plate plate--bleed reveal">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-bathroom-fluted-bath-1672.webp"
-               srcset="assets/img/photos/terrigal-bathroom-fluted-bath-480.webp 480w, assets/img/photos/terrigal-bathroom-fluted-bath-960.webp 960w, assets/img/photos/terrigal-bathroom-fluted-bath-1672.webp 1672w"
+               srcset="assets/img/photos/terrigal-bathroom-fluted-bath-480.webp 480w, assets/img/photos/terrigal-bathroom-fluted-bath-720.webp 720w, assets/img/photos/terrigal-bathroom-fluted-bath-960.webp 960w, assets/img/photos/terrigal-bathroom-fluted-bath-1672.webp 1672w"
                sizes="100vw" width="1672" height="941" loading="lazy" decoding="async"
                alt="Fluted white bathtub with a wall-mounted brass-toned spout, a lit recessed niche with fine vertical tiles, a brass-toned towel rail and large stone-look tiles in warm taupe">
         </button>
@@ -353,7 +366,7 @@
         <figure class="plate plate--portrait triptych__a reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-residence-private-internal-lift-941.webp"
-                 srcset="assets/img/photos/terrigal-residence-private-internal-lift-480.webp 480w, assets/img/photos/terrigal-residence-private-internal-lift-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-residence-private-internal-lift-480.webp 480w, assets/img/photos/terrigal-residence-private-internal-lift-720.webp 720w, assets/img/photos/terrigal-residence-private-internal-lift-941.webp 941w"
                  sizes="(min-width: 900px) 30vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="The private internal lift serving three levels of the Terrigal residence, its glass-panelled door open, showing a bronze-toned cabin with a control panel and timber-look floor, beside the staircase">
           </button>
@@ -362,7 +375,7 @@
         <figure class="plate plate--portrait triptych__b reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-residence-timber-staircase-941.webp"
-                 srcset="assets/img/photos/terrigal-residence-timber-staircase-480.webp 480w, assets/img/photos/terrigal-residence-timber-staircase-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-residence-timber-staircase-480.webp 480w, assets/img/photos/terrigal-residence-timber-staircase-720.webp 720w, assets/img/photos/terrigal-residence-timber-staircase-941.webp 941w"
                  sizes="(min-width: 900px) 30vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="Timber staircase rising between vertically panelled white walls, with a warm strip of light concealed beneath the handrail and timber battens along the open side">
           </button>
@@ -371,7 +384,7 @@
         <figure class="plate plate--portrait triptych__c reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-residence-stairwell-pendant-941.webp"
-                 srcset="assets/img/photos/terrigal-residence-stairwell-pendant-480.webp 480w, assets/img/photos/terrigal-residence-stairwell-pendant-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-residence-stairwell-pendant-480.webp 480w, assets/img/photos/terrigal-residence-stairwell-pendant-720.webp 720w, assets/img/photos/terrigal-residence-stairwell-pendant-941.webp 941w"
                  sizes="(min-width: 900px) 30vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="Stairwell with a woven pendant light hanging before a tall window, a screen of vertical timber battens and lit handrail detailing on the flight below">
           </button>
@@ -391,7 +404,7 @@
         <figure class="plate plate--portrait details__laundry reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-residence-laundry-941.webp"
-                 srcset="assets/img/photos/terrigal-residence-laundry-480.webp 480w, assets/img/photos/terrigal-residence-laundry-941.webp 941w"
+                 srcset="assets/img/photos/terrigal-residence-laundry-480.webp 480w, assets/img/photos/terrigal-residence-laundry-720.webp 720w, assets/img/photos/terrigal-residence-laundry-941.webp 941w"
                  sizes="(min-width: 900px) 34vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                  alt="Laundry with timber cabinetry and black bar handles, a stainless steel sink in a white benchtop, white subway-tile splashback, an open timber shelf above, and a window and glazed door to the outside">
           </button>
@@ -414,7 +427,7 @@
         <figure class="plate details__courtyard reveal">
           <button class="plate__btn" type="button" data-plate>
             <img src="assets/img/photos/terrigal-residence-private-courtyard-1672.webp"
-                 srcset="assets/img/photos/terrigal-residence-private-courtyard-480.webp 480w, assets/img/photos/terrigal-residence-private-courtyard-960.webp 960w, assets/img/photos/terrigal-residence-private-courtyard-1672.webp 1672w"
+                 srcset="assets/img/photos/terrigal-residence-private-courtyard-480.webp 480w, assets/img/photos/terrigal-residence-private-courtyard-720.webp 720w, assets/img/photos/terrigal-residence-private-courtyard-960.webp 960w, assets/img/photos/terrigal-residence-private-courtyard-1672.webp 1672w"
                  sizes="(min-width: 900px) 70vw, 100vw" width="1672" height="941" loading="lazy" decoding="async"
                  alt="Private courtyard at the Terrigal residence, with crisp white panelled walls and slatted screening, sand-coloured paving edged by a linear drain, a built-in ledge and a water tank, with climbing greenery above">
           </button>
@@ -527,7 +540,7 @@
       <figure class="plate plate--bleed reveal">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-balcony-sunrise-ocean-view-1672.webp"
-               srcset="assets/img/photos/terrigal-balcony-sunrise-ocean-view-480.webp 480w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp 960w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-1672.webp 1672w"
+               srcset="assets/img/photos/terrigal-balcony-sunrise-ocean-view-480.webp 480w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-720.webp 720w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp 960w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-1672.webp 1672w"
                sizes="100vw" width="1672" height="941" loading="lazy" decoding="async"
                alt="Sunrise over the ocean from a covered balcony at The Terrigal Residence, with white columns and a frameless glass balustrade, looking over treetops and rooftops to a curving beach, the ocean and the sun low on the horizon">
         </button>
@@ -547,7 +560,7 @@
       <figure class="plate plate--portrait inspections__plate">
         <button class="plate__btn" type="button" data-plate>
           <img src="assets/img/photos/terrigal-residence-double-garage-941.webp"
-               srcset="assets/img/photos/terrigal-residence-double-garage-480.webp 480w, assets/img/photos/terrigal-residence-double-garage-941.webp 941w"
+               srcset="assets/img/photos/terrigal-residence-double-garage-480.webp 480w, assets/img/photos/terrigal-residence-double-garage-720.webp 720w, assets/img/photos/terrigal-residence-double-garage-941.webp 941w"
                sizes="(min-width: 900px) 45vw, 100vw" width="941" height="1672" loading="lazy" decoding="async"
                alt="Front of the Terrigal residence under a clear blue sky: an open double garage with a lit interior at street level, three levels of balconies with glass balustrades above, rising to a gabled roof, beside a sandstone wall">
         </button>

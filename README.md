@@ -16,6 +16,7 @@ https://steinbok07.github.io/the-terrigal-residence/ address redirects to it aut
 | `assets/js/main.js` | Photo viewer, menu, scroll effects. Rarely needs changing |
 | `assets/img/photos/` | Web-optimised photographs (generated, see below) |
 | `assets/floorplans/` | Generated view-only floor plans (SVG) |
+| `assets/fonts/` | Cormorant Garamond and Jost (Open Font License, latin subset), served from the site and preloaded so the page doesn't shift as fonts arrive |
 | `assets/brochure/` | The PDF brochure goes here |
 | `tools/build_images.py` | Regenerates the photographs from the original PNGs |
 | `tools/build_floorplans.py` | Regenerates the marketing floor plans from the CDC PDFs |
@@ -52,6 +53,9 @@ sitemap). A failed submission never redirects and never counts as a conversion.
 - Phone and email conversions count clicks on `tel:` and `mailto:` links. A click isn't proof
   that a call or email happened.
 - Events are also pushed to `dataLayer`: `generate_lead`, `phone_click`, `email_click`.
+- Ad clicks: Google's tag keeps the click ID (gclid) in its `_gcl_aw` cookie for attribution. The site also
+  remembers gclid/gbraid/wbraid and `utm_` tags from the landing URL for the session, and adds a
+  `source` line to the enquiry email (for example `Google Ads click · campaign: … · gclid: …`).
 - Visitors in the EEA, UK and Switzerland default to denied (Consent Mode). Anyone can switch
   measurement off on the privacy page.
 
@@ -79,7 +83,8 @@ the area is confirmed.
 **Replace or add a photo.**
 1. Put the new PNG in the originals folder (kept outside this repository), and add or change its line in
    `PHOTOS` in `tools/build_images.py`.
-2. Run `python tools/build_images.py "<originals folder>"`. It prints the `srcset` line to use.
+2. Run `python tools/build_images.py "<originals folder>"`. It writes 480, 720 and 960 px versions plus the
+   original width, and prints the `srcset` line to use.
 3. In `index.html`, copy an existing `<figure class="plate …">` block, update the file names,
    `width`/`height`, `alt` description and caption. Plate numbers follow page order, and the
    index in the Details section (`data-goto="n"`) refers to them.

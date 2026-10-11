@@ -76,7 +76,39 @@
     else track('email', 'email_click');
   });
 
+  /* Ad-click details for the enquiry email. When a visitor lands from an ad, the click ID (gclid,
+     gbraid or wbraid) and any utm_ campaign tags are kept for this browser session, so the enquiry
+     can say it came from Google Ads. Google's own conversion cookie (_gcl_aw, set by the tag
+     above) still carries the click for attribution, whatever page the visitor lands on. */
+  var LANDING = 'tr-landing';
+  try {
+    var q = new URLSearchParams(location.search), found = {};
+    ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function (k) {
+      var v = q.get(k);
+      if (v) found[k] = v.slice(0, 200);
+    });
+    if (Object.keys(found).length) sessionStorage.setItem(LANDING, JSON.stringify(found));
+  } catch (e) { /* storage blocked */ }
+
+  function adSource() {
+    var d = {};
+    try { d = JSON.parse(sessionStorage.getItem(LANDING) || '{}'); } catch (e) { /* storage blocked */ }
+    if (!d.gclid) { // returning visitor: fall back to Google's conversion cookie (GCL.<time>.<gclid>)
+      var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=GCL\.\d+\.([^;]+)/);
+      if (m) d.gclid = decodeURIComponent(m[1]);
+    }
+    var click = d.gclid || d.gbraid || d.wbraid;
+    var parts = [];
+    if (click) parts.push('Google Ads click');
+    if (d.utm_source || d.utm_medium) parts.push([d.utm_source, d.utm_medium].filter(Boolean).join(' / '));
+    if (d.utm_campaign) parts.push('campaign: ' + d.utm_campaign);
+    if (d.utm_term) parts.push('keyword: ' + d.utm_term);
+    if (click) parts.push((d.gclid ? 'gclid' : d.gbraid ? 'gbraid' : 'wbraid') + ': ' + click);
+    return parts.join(' · ');
+  }
+
   window.TR_TRACKING = {
+    adSource: adSource,
     track: track,
     live: function () { return live; },
     optedOut: optedOut,

@@ -270,6 +270,9 @@
         message: form.elements.message.value.trim() || '(No message)',
         _gotcha: form.elements._gotcha.value
       };
+      // Where the visitor came from, when they arrived from an ad (shown in the enquiry email)
+      var source = window.TR_TRACKING && window.TR_TRACKING.adSource();
+      if (source) fields.source = source;
       submit.disabled = true;
       say('Sending…');
       send(fields).then(function () {

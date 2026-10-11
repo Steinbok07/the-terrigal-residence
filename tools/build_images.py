@@ -37,7 +37,7 @@ PHOTOS = {
 }
 # Superseded and deliberately excluded: "Minimal Coastal Living Space with Ocean Views.png"
 
-WIDTHS = (480, 960)
+WIDTHS = (480, 720, 960)  # 720 suits most phones at 2x; 480 small phones; 960+ tablets and desktop
 QUALITY = 82
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
