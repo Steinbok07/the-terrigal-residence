@@ -18,6 +18,10 @@
     .thanks h1 { color: var(--ivory); font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.04; margin-bottom: .5em; text-wrap: balance; }
     .thanks .plate img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
   </style>
+  <!-- Settings, then the Google tag (Google Ads AW-10939426204). tracking.js installs the standard
+       gtag.js snippet with consent defaults and the visitor opt-out, once per page. -->
+  <script src="../assets/js/site-config.js"></script>
+  <script src="../assets/js/tracking.js"></script>
 </head>
 <body>
   <header class="site-header is-scrolled">
@@ -46,8 +50,6 @@
     </div>
   </main>
 
-  <script src="../assets/js/site-config.js"></script>
-  <script src="../assets/js/tracking.js"></script>
   <script>
     // Count the enquiry conversion only when the form left a one-time token after the form
     // provider confirmed delivery. The token is removed straight away, so reloading this page

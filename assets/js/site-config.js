@@ -48,9 +48,9 @@ window.SITE_CONFIG = {
   //   conversionId looks like 'AW-123456789'; each label looks like 'AbCdEfGhIjK_LmNoP'.
   //   Leave a label empty to skip that action.
   googleAds: {
-    conversionId: '',
+    conversionId: 'AW-10939426204',
     labels: {
-      enquiry: '',   // PRIMARY: inspection enquiry, counted on the thank-you page after confirmed delivery
+      enquiry: 'nc4WCPfxxpgdEJzLqeAo',   // "Terrigal - Private Inspection Enquiry". PRIMARY: inspection enquiry, counted on the thank-you page after confirmed delivery
       phone: '',     // secondary: click on Gavin's phone number (a tap, not proof of a call)
       email: ''      // secondary: click on Gavin's email address (a click, not proof of an email)
     }

@@ -44,10 +44,12 @@
     gtag('consent', 'default', {
       ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted'
     });
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(tagIds[0]);
-    document.head.appendChild(s);
+    if (!document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) { // never install the tag twice
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(tagIds[0]);
+      document.head.appendChild(s);
+    }
     gtag('js', new Date());
     tagIds.forEach(function (id) { gtag('config', id); });
   }

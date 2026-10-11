@@ -25,6 +25,10 @@
     .optout__btn:hover { background: var(--charcoal); color: var(--ivory); }
     #optout-state { font-size: 14px; color: var(--muted); }
   </style>
+  <!-- Settings, then the Google tag (Google Ads AW-10939426204). tracking.js installs the standard
+       gtag.js snippet with consent defaults and the visitor opt-out, once per page. -->
+  <script src="assets/js/site-config.js"></script>
+  <script src="assets/js/tracking.js"></script>
 </head>
 <body>
   <header class="site-header is-scrolled">
@@ -75,8 +79,6 @@
     <p>Terrigal · Central Coast · NSW</p>
   </footer>
 
-  <script src="assets/js/site-config.js"></script>
-  <script src="assets/js/tracking.js"></script>
   <script>
     // Opt-out switch for Google Ads and Analytics measurement on this website (kept in this browser)
     (function () {
