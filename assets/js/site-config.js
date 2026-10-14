@@ -55,9 +55,10 @@ window.SITE_CONFIG = {
       email: ''      // secondary: click on Gavin's email address (a click, not proof of an email)
     }
   },
-  // Google Analytics 4 measurement ID, e.g. 'G-ABC123DEF4'. Optional.
+  // Google Analytics 4: the Terrigal Residence property (separate from any Steinbok analytics).
+  // Loaded by the same single Google tag as Google Ads (one gtag.js, two config commands).
   googleAnalytics: {
-    measurementId: ''
+    measurementId: 'G-EKYEZEPNP2'
   },
 
   // Put the PDF in assets/brochure/ and set its path here.

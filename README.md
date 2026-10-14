@@ -43,9 +43,11 @@ the "How enquiries are delivered" paragraph in `privacy.html`.
 After a confirmed delivery, visitors go to `thank-you/` (noindex, and deliberately not in the
 sitemap). A failed submission never redirects and never counts as a conversion.
 
-**Google Ads and Analytics.** Fill in `googleAds.conversionId` (`AW-…`), the three labels
-(`enquiry` primary; `phone` and `email` secondary) and, optionally, `googleAnalytics.measurementId`
-(`G-…`). Nothing from Google loads until an ID is set (`assets/js/tracking.js`).
+**Google Ads and Analytics.** Set in `site-config.js`: `googleAds.conversionId` (`AW-10939426204`, the
+Google Ads account running the Terrigal campaign), its labels (`enquiry` primary; `phone` and `email`
+secondary), and `googleAnalytics.measurementId` (`G-EKYEZEPNP2`, the Terrigal GA4 property). One
+gtag.js loads per page with a `config` for each ID, so there's no duplicate tag or page view. Every
+page, including `404.html`, loads `site-config.js` then `tracking.js`. Nothing from Google loads until an ID is set.
 - The enquiry conversion fires on the thank-you page only when the form left a one-time token
   after confirmed delivery. Reloads and direct visits count nothing, and the token is sent as
   `transaction_id`. In Google Ads, set the enquiry action up as a **website event using code**,
