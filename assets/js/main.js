@@ -311,8 +311,9 @@
       return a;
     };
     actions.appendChild(action('View Floor Plans', '#plans'));
-    actions.appendChild(action('Download Property Brochure', cfg.brochurePdf,
-      { download: true, pending: 'Placeholder: brochure to be supplied' }));
+    // The brochure download button was removed (Nov 2026). To bring it back, set `brochurePdf` in
+    // site-config.js and restore:
+    //   actions.appendChild(action('Download Property Brochure', cfg.brochurePdf, { download: true, pending: '…' }));
   }
 
   /* ---------- Call / enquire bar (small screens) ---------- */

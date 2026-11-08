@@ -558,30 +558,27 @@
     </section>
 
     <!-- ============ 11 THE LISTING ============
-         A click-through card to McGrath's listing, opening in a new tab so visitors keep this site open.
-         If the listing address changes, update the href below, plus `listingUrl` in
-         assets/js/site-config.js, the contact card further down and thank-you/index.html. -->
+         A live window onto McGrath's listing page. The window itself can't be scrolled or used: the whole
+         thing is one link that opens the listing in a new tab, so visitors keep this site open.
+         If the listing address changes, update the iframe src and the link href below, plus `listingUrl`
+         in assets/js/site-config.js, the contact card further down and thank-you/index.html. -->
     <section class="section listing" id="listing" aria-labelledby="h-listing">
       <header class="section-head section-head--center reveal">
         <p class="eyebrow">11 — The Listing</p>
         <h2 id="h-listing">Listed with McGrath Terrigal</h2>
         <p class="section-head__sub">See the full listing on McGrath’s website, with the price guide, contract of sale and inspection bookings.</p>
       </header>
-      <a class="listing-card reveal" href="https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341"
-         target="_blank" rel="noopener" data-listing>
-        <span class="listing-card__img">
-          <img src="assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp"
-               srcset="assets/img/photos/terrigal-balcony-sunrise-ocean-view-480.webp 480w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-720.webp 720w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp 960w"
-               sizes="(min-width: 900px) 55vw, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="">
-        </span>
-        <span class="listing-card__body">
-          <span class="listing-card__agency">McGrath Terrigal</span>
-          <span class="listing-card__title">The Terrigal Residence</span>
-          <span class="listing-card__facts">4 Bedrooms · 3 Bathrooms · Private Lift · Double Garage</span>
-          <span class="listing-card__agent">Selling agent: Andrew McBride · 0422 618 100</span>
-          <span class="listing-card__cta">View the Listing on mcgrath.com.au <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></span>
-        </span>
-      </a>
+      <div class="listing-window">
+        <div class="listing-window__frame" aria-hidden="true">
+          <iframe src="https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341"
+                  title="Preview of the McGrath listing" tabindex="-1" loading="lazy" scrolling="no"
+                  referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <a class="listing-window__link" href="https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341"
+           target="_blank" rel="noopener" data-listing>
+          <span class="listing-window__cta">View the Listing on mcgrath.com.au <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></span>
+        </a>
+      </div>
     </section>
 
     <!-- ============ 12 PRIVATE INSPECTIONS ============ -->

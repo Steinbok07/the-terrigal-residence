@@ -37,9 +37,11 @@ link, appear in the key-facts button and Private Inspections section of `index.h
 so clicks are recorded as `listing_click` (and as a Google Ads conversion if `labels.listing` is set).
 The enquiry form still delivers to the owner's Formspree inbox.
 
-**The listing card.** Section 11 (`#listing`) is a click-through card that opens McGrath's listing in a
-new tab, so visitors keep this site open. If McGrath relists under a new address, update the card's
-`href`, the contact card's "View the Listing" button, `listingUrl`, and `thank-you/index.html`.
+**The listing window.** Section 11 (`#listing`) shows McGrath's listing page in a non-interactive
+`<iframe>` with a link laid over it, so a click anywhere opens the listing in a new tab and visitors keep
+this site open. McGrath allows framing; realestate.com.au blocks it. If McGrath relists under a new
+address, update the iframe `src` and link `href`, the contact card's "View the Listing" button,
+`listingUrl`, and `thank-you/index.html`.
 
 **Enquiry form.** Delivered by Formspree (formspree.io). In the Formspree account for
 gavin@steinbok.com.au, create a form, then put its ID (the part after `formspree.io/f/`) in
