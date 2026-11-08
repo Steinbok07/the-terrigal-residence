@@ -29,9 +29,17 @@ https://steinbok07.github.io/the-terrigal-residence/ address redirects to it aut
 
 ## Common changes
 
-**Contact details.** Gavin's name, mobile and email appear in three places. Change all three
-together: the Private Inspections section in `index.html`, `thank-you/index.html` and `privacy.html`,
-plus `contact` in `site-config.js` (used by the phone call bar and form messages).
+**Contact details and listing.** The public contact is the selling agent, Andrew McBride of McGrath
+(the owner's own details are deliberately not shown). The agent's name and mobile, and the agency listing
+link, appear in the key-facts button and Private Inspections section of `index.html`,
+`thank-you/index.html` and `privacy.html`. Change them together, plus `contact` and `listingUrl` in
+`site-config.js` (used by the phone call bar and form messages). Listing links carry `data-listing`,
+so clicks are recorded as `listing_click` (and as a Google Ads conversion if `labels.listing` is set).
+The enquiry form still delivers to the owner's Formspree inbox.
+
+**The listing card.** Section 11 (`#listing`) is a click-through card that opens McGrath's listing in a
+new tab, so visitors keep this site open. If McGrath relists under a new address, update the card's
+`href`, the contact card's "View the Listing" button, `listingUrl`, and `thank-you/index.html`.
 
 **Enquiry form.** Delivered by Formspree (formspree.io). In the Formspree account for
 gavin@steinbok.com.au, create a form, then put its ID (the part after `formspree.io/f/`) in

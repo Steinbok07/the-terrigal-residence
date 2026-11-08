@@ -221,7 +221,7 @@
     if (!connected) {
       submit.disabled = true;
       submit.classList.add('btn--pending');
-      say('Placeholder: this form is not yet connected to a delivery service, so it cannot send enquiries yet. Please call or email Gavin.', 'pending');
+      say('Placeholder: this form is not yet connected to a delivery service, so it cannot send enquiries yet. Please call ' + (c.firstName || c.name) + ' on ' + c.phone + '.', 'pending');
     }
 
     var send = function (fields) {
@@ -288,7 +288,8 @@
         // Nothing is counted for a failed submission.
         var bad = (err && err.fields) || [];
         if (bad.indexOf('email') > -1) { email.setAttribute('aria-invalid', 'true'); email.focus(); say('Please check your email address and try again.', 'error'); }
-        else say('Sorry, your enquiry could not be sent. Please try again, or call Gavin on ' + c.phone + ' or email ' + c.email + '.', 'error');
+        else say('Sorry, your enquiry could not be sent. Please try again, or call ' + (c.firstName || c.name) + ' on ' + c.phone +
+                 (c.email ? ' or email ' + c.email : '') + '.', 'error');
         submit.disabled = false;
       });
     });
@@ -319,7 +320,7 @@
   if (quick) {
     if (c.phone) {
       var qc = el('a', { 'class': 'quick-contact__call', href: 'tel:' + (c.phoneLink || c.phone.replace(/[^\d+]/g, '')) });
-      qc.appendChild(el('span', null, 'Call Gavin'));
+      qc.appendChild(el('span', null, 'Call ' + (c.firstName || c.name)));
       qc.appendChild(el('span', { 'class': 'quick-contact__num' }, c.phone));
       quick.appendChild(qc);
     }

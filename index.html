@@ -134,6 +134,7 @@
           <li><a href="#connected">Levels</a></li>
           <li><a href="#details">Details</a></li>
           <li><a href="#plans">Plans</a></li>
+          <li><a href="#listing">Listing</a></li>
           <li><a class="nav__enquire" href="#inspections">Enquire</a></li>
         </ul>
       </nav>
@@ -153,7 +154,8 @@
         <li><a href="#glance"><span>08</span>At a Glance</a></li>
         <li><a href="#plans"><span>09</span>Floor Plans</a></li>
         <li><a href="#lifestyle"><span>10</span>The Terrigal Lifestyle</a></li>
-        <li><a href="#inspections"><span>11</span>Private Inspections</a></li>
+        <li><a href="#listing"><span>11</span>The Listing</a></li>
+        <li><a href="#inspections"><span>12</span>Private Inspections</a></li>
       </ol>
     </nav>
   </div>
@@ -180,7 +182,7 @@
           <li>Ocean Views</li>
           <li>Extensively Renovated</li>
         </ul>
-        <a class="keyfacts__cta" href="#enquiry">Arrange a Private Inspection</a>
+        <a class="keyfacts__cta" href="#listing">View the Listing</a>
       </div>
 
       <figure class="plate plate--hero">
@@ -555,7 +557,34 @@
       </div>
     </section>
 
-    <!-- ============ 11 PRIVATE INSPECTIONS ============ -->
+    <!-- ============ 11 THE LISTING ============
+         A click-through card to McGrath's listing, opening in a new tab so visitors keep this site open.
+         If the listing address changes, update the href below, plus `listingUrl` in
+         assets/js/site-config.js, the contact card further down and thank-you/index.html. -->
+    <section class="section listing" id="listing" aria-labelledby="h-listing">
+      <header class="section-head section-head--center reveal">
+        <p class="eyebrow">11 — The Listing</p>
+        <h2 id="h-listing">Listed with McGrath Terrigal</h2>
+        <p class="section-head__sub">See the full listing on McGrath’s website, with the price guide, contract of sale and inspection bookings.</p>
+      </header>
+      <a class="listing-card reveal" href="https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341"
+         target="_blank" rel="noopener" data-listing>
+        <span class="listing-card__img">
+          <img src="assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp"
+               srcset="assets/img/photos/terrigal-balcony-sunrise-ocean-view-480.webp 480w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-720.webp 720w, assets/img/photos/terrigal-balcony-sunrise-ocean-view-960.webp 960w"
+               sizes="(min-width: 900px) 55vw, 100vw" width="1672" height="941" loading="lazy" decoding="async" alt="">
+        </span>
+        <span class="listing-card__body">
+          <span class="listing-card__agency">McGrath Terrigal</span>
+          <span class="listing-card__title">The Terrigal Residence</span>
+          <span class="listing-card__facts">4 Bedrooms · 3 Bathrooms · Private Lift · Double Garage</span>
+          <span class="listing-card__agent">Selling agent: Andrew McBride · 0422 618 100</span>
+          <span class="listing-card__cta">View the Listing on mcgrath.com.au <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></span>
+        </span>
+      </a>
+    </section>
+
+    <!-- ============ 12 PRIVATE INSPECTIONS ============ -->
     <section class="inspections" id="inspections" aria-labelledby="h-inspections">
       <figure class="plate plate--portrait inspections__plate">
         <button class="plate__btn" type="button" data-plate>
@@ -567,21 +596,19 @@
         <figcaption><span class="plate__no">Plate 16</span>The double garage beneath three levels of balconies.</figcaption>
       </figure>
       <div class="inspections__text">
-        <p class="eyebrow">11 — Private Inspections</p>
+        <p class="eyebrow">12 — Private Inspections</p>
         <h2 id="h-inspections">Experience The Terrigal Residence</h2>
-        <p class="lede">Discover the architecture, craftsmanship and coastal outlook that define this exceptional residence. Contact Gavin Yates to arrange a private inspection or request further information.</p>
+        <p class="lede">Discover the architecture, craftsmanship and coastal outlook that define this exceptional residence. View the full listing, or contact Andrew McBride of McGrath to arrange a private inspection or request further information.</p>
 
-        <!-- Owner's contact details. If they change, also update `contact` in assets/js/site-config.js
-             and thank-you/index.html. -->
+        <!-- Selling agent's contact details. If they change, also update `contact` and `listingUrl`
+             in assets/js/site-config.js, thank-you/index.html and privacy.html. -->
         <div class="contact-card" id="contact">
-          <p class="contact-card__label">Enquiries</p>
-          <p class="contact-card__name">Gavin Yates</p>
+          <p class="contact-card__label">Selling Agent · McGrath</p>
+          <p class="contact-card__name">Andrew McBride</p>
           <div class="contact-actions">
-            <a class="btn btn--primary contact-actions__call" href="tel:+61417687697">
-              <span class="btn__stack"><span>Call Gavin</span><span class="btn__detail">0417 687 697</span></span>
-            </a>
-            <a class="btn" href="mailto:gavin@steinbok.com.au?subject=The%20Terrigal%20Residence">
-              <span class="btn__stack"><span>Email Gavin</span><span class="btn__detail">gavin@steinbok.com.au</span></span>
+            <a class="btn btn--primary" href="https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341" target="_blank" rel="noopener" data-listing>View the Listing</a>
+            <a class="btn contact-actions__call" href="tel:+61422618100">
+              <span class="btn__stack"><span>Call Andrew</span><span class="btn__detail">0422 618 100</span></span>
             </a>
             <a class="btn" href="#enquiry">Request a Private Inspection</a>
           </div>

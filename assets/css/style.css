@@ -402,7 +402,37 @@ p { margin: 0 0 1.1em; }
   display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 6vw, 100px); align-items: start;
 }
 
-/* 11 Inspections */
+/* 11 The listing: click-through card to McGrath (opens in a new tab) */
+.listing { padding-bottom: var(--section); }
+.listing-card {
+  display: grid; grid-template-columns: 7fr 5fr; max-width: 1100px; margin: 0 auto;
+  background: var(--ivory); border: 1px solid var(--line); color: var(--ink); text-decoration: none;
+  box-shadow: 0 30px 60px -40px rgba(42, 39, 36, .45);
+  transition: box-shadow .4s var(--ease), transform .4s var(--ease);
+}
+.listing-card:hover { transform: translateY(-3px); box-shadow: 0 40px 70px -40px rgba(42, 39, 36, .55); }
+.listing-card__img { display: block; overflow: hidden; }
+.listing-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.listing-card:hover .listing-card__img img { transform: scale(1.03); }
+.listing-card__body { display: flex; flex-direction: column; gap: 14px; padding: clamp(28px, 4vw, 56px); }
+.listing-card__agency { font: 500 11px/1.4 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--bronze); }
+.listing-card__title { font: 300 clamp(1.9rem, 3vw, 2.6rem)/1.08 var(--serif); color: var(--charcoal); }
+.listing-card__facts, .listing-card__agent { font-size: 15px; color: var(--muted); }
+.listing-card__cta {
+  margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line);
+  font: 500 12px/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--charcoal);
+}
+.listing-card:hover .listing-card__cta { color: var(--bronze); }
+@media (max-width: 760px) {
+  .listing-card { grid-template-columns: 1fr; }
+  .listing-card__img img { aspect-ratio: 16 / 10; }
+}
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* 12 Inspections */
 .inspections {
   background: var(--charcoal); color: var(--sand);
   display: grid; grid-template-columns: 1fr 1fr; align-items: center;

@@ -22,13 +22,19 @@ window.SITE_CONFIG = {
   ],
 
   contact: {
-    // Approved public contact details. The Private Inspections section and the
-    // thank-you page show them in their own HTML. Change them there too.
-    name: 'Gavin Yates',
-    phone: '0417 687 697',          // as displayed
-    phoneLink: '+61417687697',      // for tel: links
-    email: 'gavin@steinbok.com.au'
+    // Approved public contact details: the selling agent. The Private Inspections section,
+    // the thank-you page and privacy.html show them in their own HTML. Change them there too.
+    name: 'Andrew McBride',
+    firstName: 'Andrew',
+    agency: 'McGrath',
+    phone: '0422 618 100',          // as displayed
+    phoneLink: '+61422618100',      // for tel: links
+    email: ''                       // no public email; leave empty to hide email buttons
   },
+
+  // The McGrath listing. index.html shows it in a window (section 11, #listing) and links to it;
+  // thank-you/index.html links to it too. Change it in all those places together.
+  listingUrl: 'https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341',
 
   // "Request a Private Inspection" form.
   //   provider: 'formspree' (recommended) or 'web3forms'
@@ -51,8 +57,9 @@ window.SITE_CONFIG = {
     conversionId: 'AW-10939426204',
     labels: {
       enquiry: 'nc4WCPfxxpgdEJzLqeAo',   // "Terrigal - Private Inspection Enquiry". PRIMARY: inspection enquiry, counted on the thank-you page after confirmed delivery
-      phone: '',     // secondary: click on Gavin's phone number (a tap, not proof of a call)
-      email: ''      // secondary: click on Gavin's email address (a click, not proof of an email)
+      phone: '',     // secondary: click on the agent's phone number (a tap, not proof of a call)
+      email: '',     // secondary: click on an email address (a click, not proof of an email)
+      listing: ''    // secondary: click through to the agency listing (dataLayer event: listing_click)
     }
   },
   // Google Analytics 4: the Terrigal Residence property (separate from any Steinbok analytics).

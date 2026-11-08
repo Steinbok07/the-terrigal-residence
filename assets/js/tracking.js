@@ -16,6 +16,7 @@
  *    discard any duplicate.
  *  - phone / email: any click on a tel: or mailto: link. These are interactions, not proof
  *    that a call or email took place.
+ *  - listing: any click on a link marked data-listing (the agency listing).
  */
 (function () {
   'use strict';
@@ -74,11 +75,12 @@
     }
   }
 
-  // Phone and email clicks, on any page that loads this file
+  // Phone, email and agency-listing clicks, on any page that loads this file
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"], a[data-listing]');
     if (!a) return;
-    if (a.getAttribute('href').indexOf('tel:') === 0) track('phone', 'phone_click');
+    if (a.hasAttribute('data-listing')) track('listing', 'listing_click');
+    else if (a.getAttribute('href').indexOf('tel:') === 0) track('phone', 'phone_click');
     else track('email', 'email_click');
   });
 
