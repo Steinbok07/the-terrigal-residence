@@ -23,11 +23,11 @@ window.SITE_CONFIG = {
 
   // Enquiries go to the existing owner-managed form inbox.
   contact: {
-    name: 'The Development Team',
-    firstName: '',
+    name: 'Gavin Yates',
+    firstName: 'Gavin',
     agency: '',
-    phone: '',
-    phoneLink: '',
+    phone: '0417 687 697',
+    phoneLink: '+61417687697',
     email: ''
   },
   listingUrl: '',
