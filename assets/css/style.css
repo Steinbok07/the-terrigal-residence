@@ -633,3 +633,22 @@ p { margin: 0 0 1.1em; }
 @media (max-width: 520px) {
   .triptych { grid-template-columns: 1fr; }
 }
+
+/* Unit 1 opportunity campaign */
+.opportunity-banner { margin: 0 var(--gutter) 18px; padding: 20px 24px; background: var(--charcoal); color: var(--ivory); display: flex; gap: 20px; align-items: center; justify-content: space-between; }
+.opportunity-banner p { margin: 0; }
+.opportunity-banner strong { display: block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.opportunity-banner p span { display: block; font-size: 15px; }
+.opportunity-banner a { font-size: 13px; text-underline-offset: 4px; flex-shrink: 0; }
+.display-note { margin: 0 var(--gutter) 24px; max-width: 900px; font-size: 14px; color: var(--muted); }
+.opportunity { background: var(--ivory); }
+.opportunity-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; max-width: var(--max); margin: 0 auto; }
+.opportunity-card { padding-top: 24px; border-top: 1px solid var(--line); }
+.opportunity-card h3 { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.1; margin-bottom: .7em; }
+.opportunity-card p:last-child { font-size: 16px; }
+.opportunity-foot { max-width: 800px; text-align: center; margin: 40px auto 24px; font-size: 13px; color: var(--muted); }
+.opportunity-action { text-align: center; }
+@media (max-width: 800px) {
+  .opportunity-banner { align-items: flex-start; flex-direction: column; gap: 10px; padding: 18px; }
+  .opportunity-grid { grid-template-columns: 1fr; gap: 20px; }
+}

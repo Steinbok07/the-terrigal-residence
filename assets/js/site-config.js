@@ -13,28 +13,24 @@
  */
 window.SITE_CONFIG = {
   specs: [
-    { value: '04', label: 'Bedrooms' },
-    { value: '03', label: 'Bathrooms' },
-    { value: '03', label: 'Living Levels + Garage' },
-    { value: '01', label: 'Private Internal Lift' },
-    { value: '02', label: 'Garage Spaces' },
-    { value: 'Approx. 250 m²', label: 'Across Three Levels', note: 'Subject to confirmation on receipt of final plans' }
+    { value: '04', label: 'Proposed Bedrooms' },
+    { value: 'Open for discussion', label: 'Design' },
+    { value: 'Optional', label: 'Internal Lift' },
+    { value: 'Mid-Dec 2026', label: 'Interior Works Planned' },
+    { value: 'March 2027', label: 'Ready for Market — Target' },
+    { value: 'Deposit taken', label: 'Unit 2' }
   ],
 
+  // Enquiries go to the existing owner-managed form inbox.
   contact: {
-    // Approved public contact details: the selling agent. The Private Inspections section,
-    // the thank-you page and privacy.html show them in their own HTML. Change them there too.
-    name: 'Andrew McBride',
-    firstName: 'Andrew',
-    agency: 'McGrath',
-    phone: '0422 618 100',          // as displayed
-    phoneLink: '+61422618100',      // for tel: links
-    email: ''                       // no public email; leave empty to hide email buttons
+    name: 'The Development Team',
+    firstName: '',
+    agency: '',
+    phone: '',
+    phoneLink: '',
+    email: ''
   },
-
-  // The McGrath listing. index.html shows it in a window (section 11, #listing) and links to it;
-  // thank-you/index.html links to it too. Change it in all those places together.
-  listingUrl: 'https://www.mcgrath.com.au/property/2-55-kurrawyba-avenue-terrigal-nsw-2260-15P81341',
+  listingUrl: '',
 
   // "Request a Private Inspection" form.
   //   provider: 'formspree' (recommended) or 'web3forms'
@@ -46,7 +42,7 @@ window.SITE_CONFIG = {
   enquiryForm: {
     provider: 'formspree',
     id: 'mqpebgqv',
-    subject: 'Private inspection enquiry: The Terrigal Residence'
+    subject: 'Unit 1 design and display-home enquiry: The Terrigal Residence'
   },
 
   // Measurement. Nothing from Google loads until an ID is set.
@@ -57,7 +53,7 @@ window.SITE_CONFIG = {
     conversionId: 'AW-10939426204',
     labels: {
       enquiry: 'nc4WCPfxxpgdEJzLqeAo',   // "Terrigal - Private Inspection Enquiry". PRIMARY: inspection enquiry, counted on the thank-you page after confirmed delivery
-      phone: '',     // secondary: click on the agent's phone number (a tap, not proof of a call)
+      phone: '',     // secondary: click on a public contact phone number (a tap, not proof of a call)
       email: '',     // secondary: click on an email address (a click, not proof of an email)
       listing: ''    // secondary: click through to the agency listing (dataLayer event: listing_click)
     }
